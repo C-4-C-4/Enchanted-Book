@@ -2778,5 +2778,15 @@
         "color": "白",
         "target_zh": "-",
         "conflicts_zh": "-"
+    },
+    {
+        "id": "测试附魔书",
+        "name_zh": "测试附魔书",
+        "level_zh": "七级",
+        "price": "99999999",
+        "desc_zh": "-",
+        "color": "白",
+        "target_zh": "-",
+        "conflicts_zh": "-"
     }
 ]
