@@ -1,0 +1,2772 @@
+[
+    {
+        "id": "心灵感应",
+        "name_zh": "心灵感应",
+        "level_zh": "无等级",
+        "price": "3999",
+        "desc_zh": "掉落物和经验直接进入背包",
+        "color": "白",
+        "target_zh": "全部工具",
+        "conflicts_zh": "雷管爆破, 一剑开天门"
+    },
+    {
+        "id": "轨道工宝典",
+        "name_zh": "轨道工宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得轨道工经验和职业点",
+        "color": "白",
+        "target_zh": "铲",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "灵魂绑定",
+        "name_zh": "灵魂绑定",
+        "level_zh": "无等级",
+        "price": "3000",
+        "desc_zh": "在死亡时保留此物品",
+        "color": "白",
+        "target_zh": "全部工具, 全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "腐化",
+        "name_zh": "腐化",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "射中目标使敌人中毒7秒",
+        "color": "白",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门, 荆棘"
+    },
+    {
+        "id": "无限之矢",
+        "name_zh": "无限之矢",
+        "level_zh": "无等级",
+        "price": "3000",
+        "desc_zh": "每次射中目标时获得新箭",
+        "color": "白",
+        "target_zh": "弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "紊乱",
+        "name_zh": "紊乱",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "攻击敌人有70%使敌人反胃7秒",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟, 弓, 弩",
+        "conflicts_zh": "一剑开天门, 荆棘"
+    },
+    {
+        "id": "饥饿",
+        "name_zh": "饥饿",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "攻击敌人有70%使敌人饥饿7秒",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟, 弓, 弩",
+        "conflicts_zh": "一剑开天门, 荆棘"
+    },
+    {
+        "id": "屠龙者",
+        "name_zh": "屠龙者",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加35点对末影龙的伤害",
+        "color": "白",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "混乱",
+        "name_zh": "混乱",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "敌人不可控制移动速度和跳跃高度持续7秒",
+        "color": "白",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "永恒诅咒",
+        "name_zh": "永恒诅咒",
+        "level_zh": "七级",
+        "price": "50",
+        "desc_zh": "无法在铁砧使用",
+        "color": "白",
+        "target_zh": "全部工具, 全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "耐久",
+        "name_zh": "耐久",
+        "level_zh": "八级",
+        "price": "50",
+        "desc_zh": "增加物品4倍耐久",
+        "color": "白",
+        "target_zh": "全部工具, 全部防具",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "绑定诅咒",
+        "name_zh": "绑定诅咒",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "物品无法被取下直到物品损坏",
+        "color": "白",
+        "target_zh": "全部防具, 全部工具",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "溺尸杀手",
+        "name_zh": "溺尸杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对溺尸的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "爬行者杀手",
+        "name_zh": "爬行者杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%的对爬行者伤害",
+        "color": "白",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "锋利, 节肢杀手, 亡灵杀手, 一剑开天门, 末影终结, 神剑"
+    },
+    {
+        "id": "酿造师宝典",
+        "name_zh": "酿造师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得酿造师经验和职业点",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "石工宝典",
+        "name_zh": "石工宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得石工经验和职业点",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "饥荒",
+        "name_zh": "饥荒",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加70%的饥饿损失",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "幻翼杀手",
+        "name_zh": "幻翼杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对幻翼的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "凋零杀手",
+        "name_zh": "凋零杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对凋零骷髅的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "园丁宝典",
+        "name_zh": "园丁宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得园工经验和职业点",
+        "color": "白",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "伐木工宝典",
+        "name_zh": "伐木工宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得木工经验和职业点",
+        "color": "白",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "染坊主宝典",
+        "name_zh": "染坊主宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得染坊主经验和职业点",
+        "color": "白",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "美食大厨宝典",
+        "name_zh": "美食大厨宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得美食大厨经验和职业点",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "流浪者杀手",
+        "name_zh": "流浪者杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对流浪者的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "熔炉匠宝典",
+        "name_zh": "熔炉匠宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得熔炉匠经验和职业点",
+        "color": "白",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "铁匠宝典",
+        "name_zh": "铁匠宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得铁匠经验和职业点",
+        "color": "白",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "蜘蛛杀手",
+        "name_zh": "蜘蛛杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对蜘蛛的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "装修师宝典",
+        "name_zh": "装修师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得装修师经验和职业点",
+        "color": "白",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "龟息术",
+        "name_zh": "龟息术",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有56%的几率免疫室息伤害",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "疣猪兽杀手",
+        "name_zh": "疣猪兽杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10对疣猪兽的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "骷髅杀手",
+        "name_zh": "骷髅杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10对骷髅的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "染料商人宝典",
+        "name_zh": "染料商人宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得染料商人经验和职业点",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "下界矿工宝典",
+        "name_zh": "下界矿工宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得下界矿工经验和职业点",
+        "color": "白",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "潜影贝的馈赠",
+        "name_zh": "潜影贝的馈赠",
+        "level_zh": "三级",
+        "price": "300",
+        "desc_zh": "增加215%潜影贝的掉落",
+        "color": "白",
+        "target_zh": "剑",
+        "conflicts_zh": "抢夺, 一剑开天门"
+    },
+    {
+        "id": "造景师宝典",
+        "name_zh": "造景师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得造景师经验和职业点",
+        "color": "白",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "女巫的诅咒",
+        "name_zh": "女巫的诅咒",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "每造成一颗心的伤害就会使攻击者中毒3.50秒：最多中毒11秒",
+        "color": "白",
+        "target_zh": "裤衩",
+        "conflicts_zh": "荆棘, 一剑开天门"
+    },
+    {
+        "id": "猪灵杀手",
+        "name_zh": "猪灵杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对猪灵的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "与世隔绝",
+        "name_zh": "与世隔绝",
+        "level_zh": "无等级",
+        "price": "300",
+        "desc_zh": "有15%的几率无法放置方块",
+        "color": "白",
+        "target_zh": "全部工具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "僵尸杀手",
+        "name_zh": "僵尸杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对僵尸的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "女巫杀手",
+        "name_zh": "女巫杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%女巫的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "村长宝典",
+        "name_zh": "村长宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得村长经验和职业点",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "建筑师宝典",
+        "name_zh": "建筑师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得建筑师经验和职业点",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "腐蚀",
+        "name_zh": "腐蚀",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "对敌人护甲造成7损耗",
+        "color": "白",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "青金石傀儡",
+        "name_zh": "青金石傀儡",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "当附魔物品时有21%不消耗青金石",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "药罐子宝典",
+        "name_zh": "药罐子宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得药罐子经验和职业点",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "美食品鉴家宝典",
+        "name_zh": "美食品鉴家宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得美食品鉴家经验和职业点",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "神秘守护",
+        "name_zh": "神秘守护",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有21%几率忽略药水效果",
+        "color": "白",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "屠夫",
+        "name_zh": "屠夫",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加对被动生物14%的额外伤害",
+        "color": "白",
+        "target_zh": "剑",
+        "conflicts_zh": "锋利, 亡灵杀手, 节肢杀手, 暗夜静默, 裂魂, 裁决, 一剑开天门"
+    },
+    {
+        "id": "僵尸召唤",
+        "name_zh": "僵尸召唤",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "召唤急速僵尸为你战斗70秒 CD:25秒",
+        "color": "白",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "锈蚀",
+        "name_zh": "锈蚀",
+        "level_zh": "无等级",
+        "price": "300",
+        "desc_zh": "给予15%的概率不能打破方块",
+        "color": "白",
+        "target_zh": "全部工具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "弹刀",
+        "name_zh": "弹刀",
+        "level_zh": "无等级",
+        "price": "300",
+        "desc_zh": "攻击时无法造成伤害",
+        "color": "白",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "锋利, 亡灵杀手, 节肢杀手, 一剑开天门"
+    },
+    {
+        "id": "武器大师",
+        "name_zh": "武器大师",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "对敌人手持物品造成7点损耗",
+        "color": "白",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "脚下留情",
+        "name_zh": "脚下留情",
+        "level_zh": "无等级",
+        "price": "500",
+        "desc_zh": "防止跳跃时踩坏庄稼",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "稀金大亨宝典",
+        "name_zh": "稀金大亨宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得稀金大亨经验和职业点",
+        "color": "白",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "尸壳杀手",
+        "name_zh": "尸壳杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对尸壳的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "饕餮",
+        "name_zh": "饕餮",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "减少70%吃食物获得的饱食度",
+        "color": "白",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "烈焰人杀手",
+        "name_zh": "烈焰人杀手",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加10%对烈焰人的伤害",
+        "color": "白",
+        "target_zh": "剑, 斧, 锄, 戟",
+        "conflicts_zh": "恶意, 穿刺, 一剑开天门"
+    },
+    {
+        "id": "软弱无力",
+        "name_zh": "软弱无力",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有15%的几率使你的攻击无效",
+        "color": "白",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "方块杀手宝典",
+        "name_zh": "方块杀手宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得方块杀手经验和职业点",
+        "color": "白",
+        "target_zh": "铲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "泥胚师宝典",
+        "name_zh": "泥胚师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得泥胚师经验和职业点",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "训兽师宝典",
+        "name_zh": "训兽师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得训兽师经验和职业点",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "绝地逃生",
+        "name_zh": "绝地逃生",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "在生命值低于20%时获得35%的移动速度",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "火焰保护",
+        "name_zh": "火焰保护",
+        "level_zh": "四级",
+        "price": "50",
+        "desc_zh": "减少32%火焰伤害和60%灼烧时间",
+        "color": "白",
+        "target_zh": "全部防具",
+        "conflicts_zh": "保护, 弹射物保护, 爆炸保护"
+    },
+    {
+        "id": "摔落保护",
+        "name_zh": "摔落保护",
+        "level_zh": "四级",
+        "price": "50",
+        "desc_zh": "减少48%的掉落伤害",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "水下呼吸",
+        "name_zh": "水下呼吸",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "延长45秒水下呼吸时间并有0.75%的概率免除溺水伤害",
+        "color": "白",
+        "target_zh": "帽子",
+        "conflicts_zh": "地狱领主"
+    },
+    {
+        "id": "弹射物保护",
+        "name_zh": "弹射物保护",
+        "level_zh": "四级",
+        "price": "50",
+        "desc_zh": "减少32%所受到的弹射物伤害",
+        "color": "白",
+        "target_zh": "全部防具",
+        "conflicts_zh": "火焰保护, 保护, 爆炸保护"
+    },
+    {
+        "id": "击退",
+        "name_zh": "击退",
+        "level_zh": "二级",
+        "price": "50",
+        "desc_zh": "给予190%的攻击击退加成",
+        "color": "白",
+        "target_zh": "剑",
+        "conflicts_zh": "远离"
+    },
+    {
+        "id": "火焰附加",
+        "name_zh": "火焰附加",
+        "level_zh": "二级",
+        "price": "50",
+        "desc_zh": "将对手点燃4秒，共造成7的伤害",
+        "color": "白",
+        "target_zh": "剑",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "引雷",
+        "name_zh": "引雷",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "三叉戟击中目标时能召唤闪电",
+        "color": "白",
+        "target_zh": "戟",
+        "conflicts_zh": "召雷, 激流"
+    },
+    {
+        "id": "冰霜行者 ",
+        "name_zh": "冰霜行者 ",
+        "level_zh": "二级",
+        "price": "50",
+        "desc_zh": "将玩家4半径内的水变成冰",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "深海探索者"
+    },
+    {
+        "id": "灵魂疾行",
+        "name_zh": "灵魂疾行",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "加1.61%在灵魂沙和灵魂土上的移动速度",
+        "color": "白",
+        "target_zh": "靴子",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "爆炸保护",
+        "name_zh": "爆炸保护",
+        "level_zh": "四级",
+        "price": "50",
+        "desc_zh": "减少32%的爆炸伤害并减少60%的爆炸击退",
+        "color": "白",
+        "target_zh": "全部防具",
+        "conflicts_zh": "火焰保护, 保护, 弹射物保护"
+    },
+    {
+        "id": "横扫之刃",
+        "name_zh": "横扫之刃",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "增加横扫伤害为0.75基础伤害",
+        "color": "白",
+        "target_zh": "剑",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "绿宝石之星",
+        "name_zh": "绿宝石之星",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "消耗1枚绿宝石提升7点近战伤害",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门, 力量增幅"
+    },
+    {
+        "id": "坚如磐石",
+        "name_zh": "坚如磐石",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "增加4.90点护甲",
+        "color": "绿",
+        "target_zh": "靴子, 帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "神圣守护",
+        "name_zh": "神圣守护",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "当生命值低于53%时减少7%所受到的伤害",
+        "color": "绿",
+        "target_zh": "胸甲, 裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "逆流而上",
+        "name_zh": "逆流而上",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "怪物生命值高于230时造成更多伤害最多造成21点近战伤害",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "恶意",
+        "name_zh": "恶意",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加21%三叉戟对中立生物的伤害",
+        "color": "绿",
+        "target_zh": "戟",
+        "conflicts_zh": "穿刺, 溺户杀手, 一剑开天门, 幻翼杀手, 流浪者杀手, 蜘蛛杀手, 疣猪兽杀手, 骷髅杀手, 猪灵杀手, 僵尸杀手, 女巫杀手, 尸壳杀手, 烈焰人杀手"
+    },
+    {
+        "id": "远离",
+        "name_zh": "远离",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "给予280%额外的击退效果",
+        "color": "绿",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "击退, 一剑开天门"
+    },
+    {
+        "id": "悬浮",
+        "name_zh": "悬浮",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "将你悬浮空中，持续8秒 CD:55秒",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门, 弹射起步"
+    },
+    {
+        "id": "失明",
+        "name_zh": "失明",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有13%几率使对手在8秒内失明",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "流血",
+        "name_zh": "流血",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有10.50%的几率使对手流血：造成持续伤害",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "暗夜静默",
+        "name_zh": "暗夜静默",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "在黑暗中对监守者造成28%的额外伤害",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "锋利, 亡灵杀手, 节肢杀手, 裂魂, 一剑开天门, 裁决, 屠夫"
+    },
+    {
+        "id": "颠鸾倒凤",
+        "name_zh": "颠鸾倒凤",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有14%的几率打乱对手的快捷栏",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "果冻爱好者",
+        "name_zh": "果冻爱好者",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "对岩浆怪和史莱姆造成21%的额外伤害",
+        "color": "绿",
+        "target_zh": "剑, 斧, 弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "末影终结",
+        "name_zh": "末影终结",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "增加4.50%对末影生物的近战伤害",
+        "color": "绿",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "爬行者杀手, 一剑开天门, 神剑"
+    },
+    {
+        "id": "热血澎湃",
+        "name_zh": "热血澎湃",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "在受到伤害后短暂获得的速度4.50加成",
+        "color": "绿",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门, 疾速"
+    },
+    {
+        "id": "暗无天日",
+        "name_zh": "暗无天日",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有7%的几率使敌人失明",
+        "color": "绿",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "抗火镐",
+        "name_zh": "抗火镐",
+        "level_zh": "无等级",
+        "price": "3000",
+        "desc_zh": "持有时获得抗火效果",
+        "color": "绿",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "猎物印记",
+        "name_zh": "猎物印记",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "攻击敌人时55%使敌人发光",
+        "color": "绿",
+        "target_zh": "锄, 剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "翼人的祝福",
+        "name_zh": "翼人的祝福",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "在空中造成7点弓箭额外伤害",
+        "color": "绿",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "幸运星",
+        "name_zh": "幸运星",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "挖掘矿物时获得12秒幸运效果 CD:32秒",
+        "color": "绿",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "地狱领主",
+        "name_zh": "地狱领主",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "在下界中造成21%的额外伤害",
+        "color": "绿",
+        "target_zh": "剑, 弓, 戟",
+        "conflicts_zh": "一剑开天门, 致命一击"
+    },
+    {
+        "id": "忍者",
+        "name_zh": "忍者",
+        "level_zh": "七级",
+        "price": "800",
+        "desc_zh": "潜行时造成4点近战额外伤害",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "净化之刃",
+        "name_zh": "净化之刃",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "15%的概率移除你对手全部的正面效果",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "狙击",
+        "name_zh": "狙击",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "增加7点弓箭爆头伤害",
+        "color": "绿",
+        "target_zh": "弓, 弩, 戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "雪傀儡召唤",
+        "name_zh": "雪傀儡召唤",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "抛掷雪球召唤雪傀儡为你战斗70秒 CD:25秒",
+        "color": "绿",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "召雷",
+        "name_zh": "召雷",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "三叉戟左键召唤闪电 CD:90秒",
+        "color": "绿",
+        "target_zh": "戟",
+        "conflicts_zh": "引雷, 一剑开天门"
+    },
+    {
+        "id": "重击",
+        "name_zh": "重击",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有45%的几率使被攻击的生物眩晕1秒",
+        "color": "绿",
+        "target_zh": "剑, 弓, 弩, 戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "狂战之怒",
+        "name_zh": "狂战之怒",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "当被攻击时获得速度加成35秒",
+        "color": "绿",
+        "target_zh": "鞘翅",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "血流不止",
+        "name_zh": "血流不止",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有21%的几率给你的对手造成1的伤害，持续6.75秒",
+        "color": "绿",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门, 锋利"
+    },
+    {
+        "id": "ikun集合",
+        "name_zh": "ikun集合",
+        "level_zh": "七级",
+        "price": "233",
+        "desc_zh": "放置鸡哥全息图持续4秒 CD:20秒",
+        "color": "绿",
+        "target_zh": "锄, 斧, 铲, 剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "中娅沙漏",
+        "name_zh": "中娅沙漏",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "右键触发无敌金身无法移动持续3.50秒 CD:20秒",
+        "color": "绿",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门, 弹射起步"
+    },
+    {
+        "id": "回弦",
+        "name_zh": "回弦",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "鱼竿钩中实体以450%速度将实体拉回",
+        "color": "绿",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "绝处逢生",
+        "name_zh": "绝处逢生",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "当生命值低于30%时获得生命回复3 CD:100秒",
+        "color": "绿",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "考古学家宝典",
+        "name_zh": "考古学家宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得考古学家经验和职业点",
+        "color": "绿",
+        "target_zh": "刷子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "弓箭手宝典",
+        "name_zh": "弓箭手宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得弓箭手经验和职业点",
+        "color": "绿",
+        "target_zh": "弓",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "狂战士宝典",
+        "name_zh": "狂战士宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得狂战士经验和职业点",
+        "color": "绿",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "煤老板宝典",
+        "name_zh": "煤老板宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得煤老板经验和职业点",
+        "color": "绿",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "弩手宝典",
+        "name_zh": "弩手宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得弩手经验和职业点",
+        "color": "绿",
+        "target_zh": "弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "锄头死神宝典",
+        "name_zh": "锄头死神宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得头死神经验和职业点",
+        "color": "绿",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "附魔师宝典",
+        "name_zh": "附魔师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得附魔师经验和职业点",
+        "color": "绿",
+        "target_zh": "裤衩",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "农夫宝典",
+        "name_zh": "农夫宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得农夫经验和职业点",
+        "color": "绿",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "渔夫宝典",
+        "name_zh": "渔夫宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得渔夫经验和职业点",
+        "color": "绿",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "玻璃工宝典",
+        "name_zh": "玻璃工宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得玻璃工经验和职业点",
+        "color": "绿",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "掷弹兵宝典",
+        "name_zh": "掷弹兵宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28额外获得弹兵经验和职业点",
+        "color": "绿",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "树叶理发师宝典",
+        "name_zh": "树叶理发师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得树叶理发师经验和职业点",
+        "color": "绿",
+        "target_zh": "剪刀",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "金属厂长宝典",
+        "name_zh": "金属厂长宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得金属厂长经验和职业点",
+        "color": "绿",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "海神后裔宝典",
+        "name_zh": "海神后裔宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得海神后商经验和职业点",
+        "color": "绿",
+        "target_zh": "戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "红石爱好者宝典",
+        "name_zh": "红石爱好者宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得红石爱好者经验和职业点",
+        "color": "绿",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "红石矿商宝典",
+        "name_zh": "红石矿商宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得红石矿商经验和职业点",
+        "color": "绿",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "火箭商人宝典",
+        "name_zh": "火箭商人宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得火箭商人经验和职业点",
+        "color": "绿",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "盾卫宝典",
+        "name_zh": "盾卫宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得盾卫经验和职业点",
+        "color": "绿",
+        "target_zh": "盾",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "设计师宝典",
+        "name_zh": "设计师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得设计师经验和职业点",
+        "color": "绿",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "剑士宝典",
+        "name_zh": "剑士宝典",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "有28%额外获得剑士经验和职业点",
+        "color": "绿",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "旅行家宝典",
+        "name_zh": "旅行家宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得旅行家经验和职业点",
+        "color": "绿",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "木工宝典",
+        "name_zh": "木工宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得木工经验和职业点",
+        "color": "绿",
+        "target_zh": "裤衩",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "聊天师宝典",
+        "name_zh": "聊天师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得聊天师经验和职业点",
+        "color": "绿",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "快速生长",
+        "name_zh": "快速生长",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "右键可快速催熟农作物 CD:2秒",
+        "color": "绿",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "穿透",
+        "name_zh": "穿透",
+        "level_zh": "四级",
+        "price": "50",
+        "desc_zh": "箭能穿透5个实体",
+        "color": "绿",
+        "target_zh": "弩",
+        "conflicts_zh": "多重射击"
+    },
+    {
+        "id": "经验修补",
+        "name_zh": "经验修补",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "消耗拾取的经验球来回复物品耐久度",
+        "color": "绿",
+        "target_zh": "全部工具, 全部防具",
+        "conflicts_zh": "铁匠赐福, 无限"
+    },
+    {
+        "id": "冲击",
+        "name_zh": "冲击",
+        "level_zh": "二级",
+        "price": "50",
+        "desc_zh": "弓箭击退增加6方块",
+        "color": "绿",
+        "target_zh": "弓",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "无限",
+        "name_zh": "无限",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "不会消耗普通箭矢",
+        "color": "绿",
+        "target_zh": "弓",
+        "conflicts_zh": "经验修补"
+    },
+    {
+        "id": "火矢",
+        "name_zh": "火矢",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "箭头点燃目标并造成5火焰伤害",
+        "color": "绿",
+        "target_zh": "弓",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "力量增幅",
+        "name_zh": "力量增幅",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "在有力量效果时提升14点近战伤害",
+        "color": "绿",
+        "target_zh": "斧",
+        "conflicts_zh": "绿宝石之星, 一剑开天门"
+    },
+    {
+        "id": "浴血狂战",
+        "name_zh": "浴血狂战",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "以7%造成的伤害治疗自身",
+        "color": "绿",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门, 狂舞挥打, 斧刃"
+    },
+    {
+        "id": "穿刺箭",
+        "name_zh": "穿刺箭",
+        "level_zh": "七级",
+        "price": "50",
+        "desc_zh": "箭能穿透9格以内的实体",
+        "color": "绿",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "荆棘"
+    },
+    {
+        "id": "木匠宝典",
+        "name_zh": "木匠宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得木匠经验和职业点",
+        "color": "绿",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "村民交易师宝典",
+        "name_zh": "村民交易师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得村民交易师经验和职业点",
+        "color": "绿",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "育苗师宝典",
+        "name_zh": "育苗师宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得育苗师经验和职业点",
+        "color": "绿",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "羊毛大亨宝典",
+        "name_zh": "羊毛大亨宝典",
+        "level_zh": "七级",
+        "price": "300",
+        "desc_zh": "有28%额外获得羊毛大亨经验和职业点",
+        "color": "绿",
+        "target_zh": "剪刀",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "穿刺",
+        "name_zh": "穿刺",
+        "level_zh": "五级",
+        "price": "800",
+        "desc_zh": "增加12.50%三叉戟对水生生物伤害",
+        "color": "绿",
+        "target_zh": "戟",
+        "conflicts_zh": "溺尸杀手, 幻翼杀手, 流浪者杀手, 蜘蛛杀手, 疣猪兽杀手, 骷髅杀手, 猪灵杀手, 恶意, 僵尸杀手, 女巫杀手, 尸壳杀手, 烈焰人杀手"
+    },
+    {
+        "id": "迅捷潜行",
+        "name_zh": "迅捷潜行",
+        "level_zh": "三级",
+        "price": "500",
+        "desc_zh": "减少45%潜行造成的缓慢效果",
+        "color": "绿",
+        "target_zh": "裤衩",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "保护",
+        "name_zh": "保护",
+        "level_zh": "五级",
+        "price": "50",
+        "desc_zh": "减少20%的伤害",
+        "color": "绿",
+        "target_zh": "全部防具",
+        "conflicts_zh": "火焰保护, 弹射物保护, 爆炸保护"
+    },
+    {
+        "id": "饵钓",
+        "name_zh": "饵钓",
+        "level_zh": "四级",
+        "price": "50",
+        "desc_zh": "减少20秒鱼上钩所需时间",
+        "color": "绿",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "水下速掘",
+        "name_zh": "水下速掘",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "清除水下挖掘减速惩罚",
+        "color": "绿",
+        "target_zh": "帽子",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "深海探索者",
+        "name_zh": "深海探索者",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "减少99%的水下缓慢效果",
+        "color": "绿",
+        "target_zh": "靴子",
+        "conflicts_zh": "冰霜行者"
+    },
+    {
+        "id": "生命窃取",
+        "name_zh": "生命窃取",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "以7%造成的伤害治疗自身",
+        "color": "紫",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "寄生虫",
+        "name_zh": "寄生虫",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "以7%造成的伤害治疗自身",
+        "color": "紫",
+        "target_zh": "戟, 弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "铁匠赐福",
+        "name_zh": "铁匠赐福",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "每3秒自动获得7耐久",
+        "color": "紫",
+        "target_zh": "全部工具, 全部防具",
+        "conflicts_zh": "经验修补, 一剑开天门"
+    },
+    {
+        "id": "神农献祭",
+        "name_zh": "神农献祭",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "以10.50%造成的伤害治疗自身",
+        "color": "紫",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "肾上腺素",
+        "name_zh": "肾上腺素",
+        "level_zh": "七级",
+        "price": "700",
+        "desc_zh": "当成功格挡时，获得5.50秒的力量4 CD:25秒",
+        "color": "紫",
+        "target_zh": "盾",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "波塞冬之柄",
+        "name_zh": "波塞冬之柄",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "增加三叉戟在水下100点投掷和近战伤害",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "月光戟",
+        "name_zh": "月光戟",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "增加三叉戟在晚上110%伤害",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "日光戟",
+        "name_zh": "日光戟",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "增加三叉戟在白天110%伤害",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "无畏疼痛",
+        "name_zh": "无畏疼痛",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "当你受到伤害时获得18秒力量提升",
+        "color": "紫",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "千骑冲锋",
+        "name_zh": "千骑冲锋",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "在冲刺时拥有28%的攻击速度加成",
+        "color": "紫",
+        "target_zh": "剑",
+        "conflicts_zh": "灵巧, 一剑开天门"
+    },
+    {
+        "id": "弹射起步",
+        "name_zh": "弹射起步",
+        "level_zh": "七级",
+        "price": "700",
+        "desc_zh": "以10.50x的速度向前冲刺 CD:11秒",
+        "color": "紫",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门, 中娅沙漏, 悬浮"
+    },
+    {
+        "id": "灵巧",
+        "name_zh": "灵巧",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "提高21%的攻击速度",
+        "color": "紫",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "千骑冲锋, 一剑开天门"
+    },
+    {
+        "id": "飓风箭阵",
+        "name_zh": "飓风箭阵",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "潜行加左键时召唤28个箭环造成47伤害 CD:25秒",
+        "color": "紫",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "未来之刃",
+        "name_zh": "未来之刃",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "拥有31%的机会在1秒后造成14额外伤害",
+        "color": "紫",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "致命一击",
+        "name_zh": "致命一击",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "攻击时有9%造成100点伤害",
+        "color": "紫",
+        "target_zh": "剑, 弓, 戟, 斧",
+        "conflicts_zh": "一剑开天门, 地狱领主"
+    },
+    {
+        "id": "诸神黄昏",
+        "name_zh": "诸神黄昏",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "对手每损失1%的生命值：就增加0.14点近战伤害",
+        "color": "紫",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "觅食",
+        "name_zh": "觅食",
+        "level_zh": "七级",
+        "price": "600",
+        "desc_zh": "增加35%树叶掉落苹果的几率",
+        "color": "紫",
+        "target_zh": "剪刀",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "凛冬已至",
+        "name_zh": "凛冬已至",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "增加42%的几率使敌人被冻结2.45秒",
+        "color": "紫",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "盾反",
+        "name_zh": "盾反",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "格挡获得10秒速度提升并使敌人缓慢2秒",
+        "color": "紫",
+        "target_zh": "盾",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "致命之锄",
+        "name_zh": "致命之锄",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "增加45点头的近战伤害",
+        "color": "紫",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "死不瞑目",
+        "name_zh": "死不瞑目",
+        "level_zh": "七级",
+        "price": "600",
+        "desc_zh": "死亡时产生一个毒云，持续1秒",
+        "color": "紫",
+        "target_zh": "帽子",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "旋风锄",
+        "name_zh": "旋风锄",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "攻击对手拥有22%获得速度2持续9秒",
+        "color": "紫",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门, 疾速"
+    },
+    {
+        "id": "快锄",
+        "name_zh": "快锄",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "提高锄头7%攻击速度",
+        "color": "紫",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "森林灾星",
+        "name_zh": "森林灾星",
+        "level_zh": "七级",
+        "price": "2750",
+        "desc_zh": "一次砍掉一棵树的10方块",
+        "color": "紫",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "音符舞者",
+        "name_zh": "音符舞者",
+        "level_zh": "无等级",
+        "price": "500",
+        "desc_zh": "一步一个音符(很吵)",
+        "color": "紫",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "地狱矿工",
+        "name_zh": "地狱矿工",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "挖掘远古残骸时有35%额外掉落一个",
+        "color": "紫",
+        "target_zh": "稿",
+        "conflicts_zh": "时运, 精准采集, 一剑开天门"
+    },
+    {
+        "id": "远掷",
+        "name_zh": "远掷",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "三叉戟每飞过2方块就增加1.40点额外伤害",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "撕裂",
+        "name_zh": "撕裂",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "有70%的几率使对手每秒流血3.50点持续9秒",
+        "color": "紫",
+        "target_zh": "弓, 弩, 戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "跳跃强化",
+        "name_zh": "跳跃强化",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "穿上后获得永久跳跃3提升",
+        "color": "紫",
+        "target_zh": "鞘翅",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "箭术高手",
+        "name_zh": "箭术高手",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "让你以58%的张力射出满箭",
+        "color": "紫",
+        "target_zh": "弓",
+        "conflicts_zh": "一剑开天门, 终极猎手"
+    },
+    {
+        "id": "反伤刺甲",
+        "name_zh": "反伤刺甲",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "将45%的伤害反弹回攻击者",
+        "color": "紫",
+        "target_zh": "盾",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "神农祝福",
+        "name_zh": "神农祝福",
+        "level_zh": "无等级",
+        "price": "1500",
+        "desc_zh": "收获时作物会自动重新种植",
+        "color": "紫",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "愤怒反击",
+        "name_zh": "愤怒反击",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "当生命值低于一半时，给予18点近战伤害",
+        "color": "紫",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "风之子",
+        "name_zh": "风之子",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "持有时提升28%的移动速度",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "雷罚",
+        "name_zh": "雷罚",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "在雷雨天钩住敌人有60%的概率召唤雷电对敌人造成8的伤害",
+        "color": "紫",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "精力充沛",
+        "name_zh": "精力充沛",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "减少冲刺时70%的饥饿损失",
+        "color": "紫",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "真实伤害",
+        "name_zh": "真实伤害",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "增加4.90的真实伤害",
+        "color": "紫",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "连锁采矿",
+        "name_zh": "连锁采矿",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "在一个矿脉中挖掘出17个方块",
+        "color": "紫",
+        "target_zh": "稿",
+        "conflicts_zh": "爆破采矿, 一剑开天门"
+    },
+    {
+        "id": "末影召唤",
+        "name_zh": "末影召唤",
+        "level_zh": "七级",
+        "price": "600",
+        "desc_zh": "召唤末影人为你战斗70秒 CD:25秒",
+        "color": "紫",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "空间刺客",
+        "name_zh": "空间刺客",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "用箭射击把对手向自身位置拉然后传送到对手所在位置 CD:4秒",
+        "color": "紫",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "升级咯",
+        "name_zh": "升级咯",
+        "level_zh": "七级",
+        "price": "1100",
+        "desc_zh": "增加35%掉落经验",
+        "color": "紫",
+        "target_zh": "全部工具",
+        "conflicts_zh": "一剑开天门, 灵魂三叉戟"
+    },
+    {
+        "id": "飞行战士",
+        "name_zh": "飞行战士",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "增加7点近战伤害",
+        "color": "紫",
+        "target_zh": "鞘翅",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "时光回溯",
+        "name_zh": "时光回溯",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "时空逆流送你到10秒前的位置 CD:20秒",
+        "color": "紫",
+        "target_zh": "剑, 斧, 稿, 铲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "天罚",
+        "name_zh": "天罚",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "增加30点对玩家的伤害",
+        "color": "紫",
+        "target_zh": "戟, 弩, 弓",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "铁傀儡召唤",
+        "name_zh": "铁傀儡召唤",
+        "level_zh": "七级",
+        "price": "600",
+        "desc_zh": "抛掷鸡蛋召唤2个铁傀儡为你战斗70秒 CD:25秒",
+        "color": "紫",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "金鳞甲",
+        "name_zh": "金鳞甲",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "增加1.40点护甲韧性",
+        "color": "紫",
+        "target_zh": "胸甲, 裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "海底宝藏",
+        "name_zh": "海底宝藏",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "刷到可疑方块获得7点饱食度",
+        "color": "紫",
+        "target_zh": "刷子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "经验傀儡",
+        "name_zh": "经验傀儡",
+        "level_zh": "七级",
+        "price": "500",
+        "desc_zh": "当附魔物品时有35不消耗经验",
+        "color": "紫",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "冲刺箭羽",
+        "name_zh": "冲刺箭羽",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "冲刺时射箭增加14点额外伤害",
+        "color": "紫",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "绝境坚守",
+        "name_zh": "绝境坚守",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "当生命值低于20%时获得抗性提升3 CD:80秒",
+        "color": "紫",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "高原血统",
+        "name_zh": "高原血统",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "每次连续攻击增加0.35伤害，最高增加6点伤害",
+        "color": "紫",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "力量",
+        "name_zh": "力量",
+        "level_zh": "五级",
+        "price": "50",
+        "desc_zh": "增加250%弓箭伤害",
+        "color": "紫",
+        "target_zh": "弓",
+        "conflicts_zh": "聚能弓, 聚能弩, 终极猎手"
+    },
+    {
+        "id": "快速装填",
+        "name_zh": "快速装填",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "减少0.75秒弩的装填时间",
+        "color": "紫",
+        "target_zh": "弩",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "多重射击",
+        "name_zh": "多重射击",
+        "level_zh": "无等级",
+        "price": "50",
+        "desc_zh": "弩单次射出3支箭矢",
+        "color": "紫",
+        "target_zh": "弩",
+        "conflicts_zh": "爆炸箭头, 穿透"
+    },
+    {
+        "id": "钻石之星",
+        "name_zh": "钻石之星",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "消耗1枚钻石提升14点近战伤害",
+        "color": "紫",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "冲击波",
+        "name_zh": "冲击波",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "攻击时在对手脚下爆炸7次 CD:25秒",
+        "color": "紫",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "死不瞑目",
+        "name_zh": "死不瞑目",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "死亡时产生一个毒云，持续7秒",
+        "color": "紫",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "荆棘",
+        "name_zh": "荆棘",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "受到物理伤害时，有45%对攻击者反弹",
+        "color": "紫",
+        "target_zh": "全部防具",
+        "conflicts_zh": "饥饿, 紊乱, 女巫的诅咒, 腐化"
+    },
+    {
+        "id": "亡灵杀手",
+        "name_zh": "亡灵杀手",
+        "level_zh": "五级",
+        "price": "50",
+        "desc_zh": "增加对亡灵生物12.50的近战伤害",
+        "color": "紫",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "爬行者杀手, 屠夫, 弹刀, 裂魂, 裁决, 暗夜静默, 神剑, 锋利, 节肢杀手"
+    },
+    {
+        "id": "海之誉顾",
+        "name_zh": "海之誉顾",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "增加6%钓上宝藏的概率",
+        "color": "紫",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "精准采集"
+    },
+    {
+        "id": "激流",
+        "name_zh": "激流",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "在水中或雨中投掷三叉戟时，向前冲刺",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "引雷, 忠诚"
+    },
+    {
+        "id": "节肢杀手",
+        "name_zh": "节肢杀手",
+        "level_zh": "五级",
+        "price": "50",
+        "desc_zh": "增加对节肢生物12.50的近战伤害",
+        "color": "紫",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "爬行者杀手, 裂魂, 裁决, 暗夜静默, 屠夫, 弹刀, 神剑, 亡灵杀手, 锋利"
+    },
+    {
+        "id": "效率",
+        "name_zh": "效率",
+        "level_zh": "五级",
+        "price": "50",
+        "desc_zh": "增加45%的挖掘速度",
+        "color": "紫",
+        "target_zh": "全部工具",
+        "conflicts_zh": "无冲突"
+    },
+    {
+        "id": "时运",
+        "name_zh": "时运",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "增加121%的物品掉落",
+        "color": "紫",
+        "target_zh": "全部工具",
+        "conflicts_zh": "精准采集, 地狱矿工"
+    },
+    {
+        "id": "忠诚",
+        "name_zh": "忠诚",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "丢出的三叉戟会返回到手中",
+        "color": "紫",
+        "target_zh": "戟",
+        "conflicts_zh": "激流"
+    },
+    {
+        "id": "抢夺",
+        "name_zh": "抢夺",
+        "level_zh": "三级",
+        "price": "50",
+        "desc_zh": "增加3个最大普通掉落物，3%获得稀有掉落",
+        "color": "紫",
+        "target_zh": "剑",
+        "conflicts_zh": "潜影贝的馈赠, 精准采集"
+    },
+    {
+        "id": "人体火箭",
+        "name_zh": "人体火箭",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "有70%的几率不消耗烟花",
+        "color": "金",
+        "target_zh": "鞘翅",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "落羽",
+        "name_zh": "落羽",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "穿上时获得缓降3效果",
+        "color": "金",
+        "target_zh": "鞘翅",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "活动肌肉",
+        "name_zh": "活动肌肉",
+        "level_zh": "七级",
+        "price": "3500",
+        "desc_zh": "增加21点近战伤害，右键获得11秒力量3CD：19秒",
+        "color": "金",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "爆炸箭头",
+        "name_zh": "爆炸箭头",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "箭头落地会造成7发爆炸 CD:20秒",
+        "color": "金",
+        "target_zh": "弩",
+        "conflicts_zh": "一剑开天门, 多重射击"
+    },
+    {
+        "id": "瘟疫蔓延",
+        "name_zh": "瘟疫蔓延",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "你的三叉在降落时有70%的几率生成一团毒云",
+        "color": "金",
+        "target_zh": "戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "雷管爆破",
+        "name_zh": "雷管爆破",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "潜行时右键挖掘9x9区域的方块 CD:80秒",
+        "color": "金",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门, 心灵感应"
+    },
+    {
+        "id": "疾驰",
+        "name_zh": "疾驰",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "减少70%冲刺时的饥饿消耗",
+        "color": "金",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "挖掘连锁",
+        "name_zh": "挖掘连锁",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "挖掘7的方块",
+        "color": "金",
+        "target_zh": "铲",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "一剑",
+        "name_zh": "一剑",
+        "level_zh": "七级",
+        "price": "8000",
+        "desc_zh": "对处于90%生命值以上时目标造成21的真实伤害",
+        "color": "金",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "痛贯天灵",
+        "name_zh": "痛贯天灵",
+        "level_zh": "七级",
+        "price": "7000",
+        "desc_zh": "增加7点伤害",
+        "color": "金",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "灵火炼矿",
+        "name_zh": "灵火炼矿",
+        "level_zh": "无等级",
+        "price": "5000",
+        "desc_zh": "自动熔炼矿物",
+        "color": "金",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门, 精准采集"
+    },
+    {
+        "id": "缓伤",
+        "name_zh": "缓伤",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "被攻击时吸收敌人伤害持续8秒",
+        "color": "金",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "盾击",
+        "name_zh": "盾击",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "对9方块内的玩家造成28的伤害 CD:24秒",
+        "color": "金",
+        "target_zh": "盾",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "缤纷",
+        "name_zh": "缤纷",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "剪树叶时35%掉落花朵和染料",
+        "color": "金",
+        "target_zh": "剪刀",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "怒之领域",
+        "name_zh": "怒之领域",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "右键向前闪现同时增加15点近战伤害，持续29秒",
+        "color": "金",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "灵魂三叉戟",
+        "name_zh": "灵魂三叉戟",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "潜行时发射或使用三叉戟攻击时对7方块内的敌人造成40点额外伤害",
+        "color": "金",
+        "target_zh": "戟",
+        "conflicts_zh": "升级咯, 一剑开天门"
+    },
+    {
+        "id": "疾速",
+        "name_zh": "疾速",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "提升21%的移动速度",
+        "color": "金",
+        "target_zh": "靴子",
+        "conflicts_zh": "热血澎湃, 一剑开天门, 旋风锄"
+    },
+    {
+        "id": "超会心",
+        "name_zh": "超会心",
+        "level_zh": "七级",
+        "price": "8000",
+        "desc_zh": "增加14近战伤害但有70%概率增加32点伤害",
+        "color": "金",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "茁壮成长",
+        "name_zh": "茁壮成长",
+        "level_zh": "七级",
+        "price": "7000",
+        "desc_zh": "增加7的血量（可以与永恒庇护叠加）",
+        "color": "金",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "岿然不动",
+        "name_zh": "岿然不动",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "按住潜行拥有缓慢X和防御增强3的效果",
+        "color": "金",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "矿物透视",
+        "name_zh": "矿物透视",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "使17方块内的矿石发光持续8秒",
+        "color": "金",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "巡航箭",
+        "name_zh": "巡航箭",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "自动瞄准15格以内的怪物",
+        "color": "金",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "爆裂魔法",
+        "name_zh": "爆裂魔法",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "死亡时自爆同时对3.50格内造成35伤害",
+        "color": "金",
+        "target_zh": "裤衩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "生命涌泉",
+        "name_zh": "生命涌泉",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "急速恢复30点生命值 CD:80秒",
+        "color": "金",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "星闪",
+        "name_zh": "星闪",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "在盔甲附魔有金蝉脱壳时增加8.40%的闪避概率",
+        "color": "金",
+        "target_zh": "胸甲",
+        "conflicts_zh": "一剑开天门, 金蝉脱壳"
+    },
+    {
+        "id": "渔夫奇遇",
+        "name_zh": "渔夫奇遇",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "钓鱼收杆时有35%额外获得1个鱼类",
+        "color": "金",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "斧刃",
+        "name_zh": "斧刃",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "为狂舞挥打增加14点近战伤害和28点溅射伤害",
+        "color": "金",
+        "target_zh": "斧",
+        "conflicts_zh": "锋利, 一剑开天门, 浴血狂战"
+    },
+    {
+        "id": "金蝉脱壳",
+        "name_zh": "金蝉脱壳",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "增加5.60%闪避概率",
+        "color": "金",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门, 星闪"
+    },
+    {
+        "id": "陶片透视",
+        "name_zh": "陶片透视",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "使17方块内的可疑方块发光持续8秒",
+        "color": "金",
+        "target_zh": "刷子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "雷神",
+        "name_zh": "雷神",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "有70%的几率向你的对手施放4闪电",
+        "color": "金",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "均衡之刃",
+        "name_zh": "均衡之刃",
+        "level_zh": "七级",
+        "price": "8000",
+        "desc_zh": "攻击时增加21点近战伤害",
+        "color": "金",
+        "target_zh": "剑",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "连锁收割",
+        "name_zh": "连锁收割",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "一次性采摘7的面向的农作物",
+        "color": "金",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "百步穿杨",
+        "name_zh": "百步穿杨",
+        "level_zh": "七级",
+        "price": "8500",
+        "desc_zh": "箭每飞过5方块就增加4.50的额外伤害",
+        "color": "金",
+        "target_zh": "弓",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "近破者",
+        "name_zh": "近破者",
+        "level_zh": "七级",
+        "price": "7000",
+        "desc_zh": "弩箭射中目标距离越近害越高最高21点伤害同时给予目标击退",
+        "color": "金",
+        "target_zh": "弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "爆破采矿",
+        "name_zh": "爆破采矿",
+        "level_zh": "七级",
+        "price": "3750",
+        "desc_zh": "35%的概率爆破周围3x3的方块",
+        "color": "红",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门, 连锁采矿"
+    },
+    {
+        "id": "灵羽之力",
+        "name_zh": "灵羽之力",
+        "level_zh": "七级",
+        "price": "5000",
+        "desc_zh": "提供永久力量4效果",
+        "color": "红",
+        "target_zh": "鞘翅",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "狂舞挥打",
+        "name_zh": "狂舞挥打",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "挥舞斧头对半径3.50格内的敌人造成14点溅射伤害",
+        "color": "红",
+        "target_zh": "斧",
+        "conflicts_zh": "锋利, 一剑开天门, 浴血狂战"
+    },
+    {
+        "id": "聚能弓",
+        "name_zh": "聚能弓",
+        "level_zh": "七级",
+        "price": "4000",
+        "desc_zh": "增加40点弓箭的伤害",
+        "color": "红",
+        "target_zh": "弓",
+        "conflicts_zh": "力量, 一剑开天门"
+    },
+    {
+        "id": "聚能弩",
+        "name_zh": "聚能弩",
+        "level_zh": "七级",
+        "price": "4500",
+        "desc_zh": "增加40点弩的伤害",
+        "color": "红",
+        "target_zh": "弩",
+        "conflicts_zh": "力量, 一剑开天门"
+    },
+    {
+        "id": "夜之眼",
+        "name_zh": "夜之眼",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "拥有永久夜视3效果",
+        "color": "红",
+        "target_zh": "帽子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "大地守护",
+        "name_zh": "大地守护",
+        "level_zh": "七级",
+        "price": "2000",
+        "desc_zh": "获得持续20秒的生命恢复 CD:20",
+        "color": "红",
+        "target_zh": "锄",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "潮漩",
+        "name_zh": "潮漩",
+        "level_zh": "七级",
+        "price": "3500",
+        "desc_zh": "增加40点三叉戟近战和投掷的伤害",
+        "color": "红",
+        "target_zh": "戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "一剑开天门",
+        "name_zh": "一剑开天门",
+        "level_zh": "七级",
+        "price": "5000",
+        "desc_zh": "增加50点近战伤害，但与其他所有附魔冲实",
+        "color": "红",
+        "target_zh": "剑, 斧",
+        "conflicts_zh": "全部附魔"
+    },
+    {
+        "id": "幸运混凝土",
+        "name_zh": "幸运混凝土",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "挖掘沙子时35%掉落随机颜色混凝土",
+        "color": "红",
+        "target_zh": "铲",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "幸运石英块",
+        "name_zh": "幸运石英块",
+        "level_zh": "七级",
+        "price": "2500",
+        "desc_zh": "挖掘下界岩时35%掉落石英块",
+        "color": "红",
+        "target_zh": "稿",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "幸运海晶灯",
+        "name_zh": "幸运海晶灯",
+        "level_zh": "七级",
+        "price": "1500",
+        "desc_zh": "挖掘石头时35%掉落海晶灯",
+        "color": "红",
+        "target_zh": "稿",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "幸运蛙明灯",
+        "name_zh": "幸运蛙明灯",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "挖掘草方块时35%掉落蛙明灯",
+        "color": "红",
+        "target_zh": "铲",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "神剑",
+        "name_zh": "神剑",
+        "level_zh": "七级",
+        "price": "15000",
+        "desc_zh": "近战时额外增加40点伤害",
+        "color": "红",
+        "target_zh": "剑",
+        "conflicts_zh": "锋利, 亡灵杀手, 节肢杀手, 爬行者杀手, 末影终结, 一剑开天门"
+    },
+    {
+        "id": "完美防御",
+        "name_zh": "完美防御",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "格挡成功回复7的生命值 CD：3秒",
+        "color": "红",
+        "target_zh": "盾",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "追猎者",
+        "name_zh": "追猎者",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "饥饿低于80获得330%的移动速度",
+        "color": "红",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "激素矿工",
+        "name_zh": "激素矿工",
+        "level_zh": "七级",
+        "price": "3749.875",
+        "desc_zh": "挖掘矿物获得70秒夜视3和急迫3效果",
+        "color": "红",
+        "target_zh": "稿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "超负荷",
+        "name_zh": "超负荷",
+        "level_zh": "七级",
+        "price": "3000",
+        "desc_zh": "穿着时获得2.05×速度提升但饥饿速度增加1.60×倍！",
+        "color": "红",
+        "target_zh": "靴子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "万箭齐发",
+        "name_zh": "万箭齐发",
+        "level_zh": "七级",
+        "price": "1750",
+        "desc_zh": "一次射出五支箭递推分散9.10°角度每支箭增加18伤害",
+        "color": "红",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "终极猎手",
+        "name_zh": "终极猎手",
+        "level_zh": "七级",
+        "price": "12000",
+        "desc_zh": "对B0SS增加95点弓箭伤害",
+        "color": "红",
+        "target_zh": "弓, 弩",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "幸运矿钓",
+        "name_zh": "幸运矿钓",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "钓鱼收杆时有35%随机获得原版矿物",
+        "color": "红",
+        "target_zh": "钓鱼竿",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "幸运陶瓦",
+        "name_zh": "幸运陶瓦",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "挖掘石头时35%掉落随机颜色陶瓦",
+        "color": "红",
+        "target_zh": "稿",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "永恒庇护",
+        "name_zh": "永恒庇护",
+        "level_zh": "七级",
+        "price": "12000",
+        "desc_zh": "增加15的生命值上限",
+        "color": "红",
+        "target_zh": "全部防具",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "幸运陶片",
+        "name_zh": "幸运陶片",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "考古时有7%随机掉落一个陶片",
+        "color": "红",
+        "target_zh": "刷子",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "裁决",
+        "name_zh": "裁决",
+        "level_zh": "七级",
+        "price": "18000",
+        "desc_zh": "增加对玩家100点近战伤害",
+        "color": "红",
+        "target_zh": "剑",
+        "conflicts_zh": "锋利, 亡灵杀手, 节肢杀手, 暗夜静默, 一剑开天门, 屠夫"
+    },
+    {
+        "id": "破军",
+        "name_zh": "破军",
+        "level_zh": "七级",
+        "price": "15000",
+        "desc_zh": "近战时额外增加50点伤害",
+        "color": "红",
+        "target_zh": "斧",
+        "conflicts_zh": "一剑开天门, 锋利"
+    },
+    {
+        "id": "裂魂",
+        "name_zh": "裂魂",
+        "level_zh": "七级",
+        "price": "15000",
+        "desc_zh": "增加对玩家150点近战伤害",
+        "color": "红",
+        "target_zh": "斧",
+        "conflicts_zh": "锋利, 亡灵杀手, 节肢杀手, 屠夫, 暗夜静默, 一剑开天门"
+    },
+    {
+        "id": "幸运羊毛",
+        "name_zh": "幸运羊毛",
+        "level_zh": "七级",
+        "price": "1000",
+        "desc_zh": "剪切树叶时35%掉落随机颜色羊毛",
+        "color": "红",
+        "target_zh": "剪刀",
+        "conflicts_zh": "精准采集, 一剑开天门"
+    },
+    {
+        "id": "血轮印",
+        "name_zh": "血轮印",
+        "level_zh": "七级",
+        "price": "",
+        "desc_zh": "［F]键释放三个血轮并路径上的目标造成45点伤害 CD:4秒消耗：5职业点",
+        "color": "蓝",
+        "target_zh": "弓, 弩, 剑, 斧, 锄, 戟",
+        "conflicts_zh": "一剑开天门"
+    },
+    {
+        "id": "光剑斩",
+        "name_zh": "光剑斩",
+        "level_zh": "七级",
+        "price": "",
+        "desc_zh": "［F]键召唤光剑三连战造成45点伤害并击退目标 CD:4秒消耗：5职业点",
+        "color": "蓝",
+        "target_zh": "弓, 弩, 剑, 斧, 锄, 戟",
+        "conflicts_zh": "一剑开天门"
+    }
+]
