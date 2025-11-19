@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>附魔书管理后台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; padding: 20px; background: #f0f2f5; color: #333; max-width: 1000px; margin: 0 auto; }
+        .config-box { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .input-group { margin-bottom: 10px; display: flex; gap: 10px; align-items: center; }
+        label { width: 100px; font-weight: bold; color: #555; }
+        input, select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 4px; flex: 1; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #3eaf7c; }
+        
+        button { padding: 10px 20px; background: #3eaf7c; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+        button.delete { background: #f56c6c; }
+        button.secondary { background: #909399; }
+        
+        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-top: 10px; }
+        th, td { padding: 15px 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: bold; color: #666; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: #f5f7fa; }
+        
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; visibility: hidden; opacity: 0; transition: 0.3s; z-index: 1000; backdrop-filter: blur(3px); }
+        .modal.active { visibility: visible; opacity: 1; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1); }
+        
+        .status-bar { position: fixed; bottom: 20px; right: 20px; padding: 12px 24px; border-radius: 8px; color: white; display: none; z-index: 2000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
+        .success { background: #67c23a; } .error { background: #f56c6c; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Tag Styles */
+        .tag { padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; color: #fff; font-weight: bold; }
+        .tag-white { background: #909399; }
+        .tag-green { background: #67c23a; }
+        .tag-blue { background: #409eff; }
+        .tag-purple { background: #a355d6; }
+        .tag-gold { background: #e6a23c; }
+        .tag-red { background: #f56c6c; }
+    </style>
+</head>
+<body>
+
+    <h1 style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+        <i class="fa-solid fa-book-open" style="color:#3eaf7c"></i> 附魔书管理后台
+    </h1>
+
+    <!-- 配置区域 -->
+    <div class="config-box">
+        <h3 style="margin-top:0;margin-bottom:15px;border-bottom:1px solid #eee;padding-bottom:10px">1. 连接 GitHub</h3>
+        <div class="input-group">
+            <label>Token:</label>
+            <input type="password" id="ghToken" placeholder="在此粘贴你的 GitHub Personal Access Token">
+        </div>
+        <div class="input-group">
+            <label>用户名:</label>
+            <input type="text" id="ghOwner" value="C-4-C-4" readonly style="background:#f5f7fa;color:#666;cursor:not-allowed">
+        </div>
+        <div class="input-group">
+            <label>仓库名:</label>
+            <input type="text" id="ghRepo" value="Enchanted-Book" readonly style="background:#f5f7fa;color:#666;cursor:not-allowed">
+        </div>
+        <div class="input-group">
+            <label>文件路径:</label>
+            <input type="text" id="ghPath" value="data.json">
+        </div>
+        <div style="margin-top:15px">
+            <button onclick="saveConfig()">连接并加载数据</button>
+            <span style="color:#999;font-size:0.9rem;margin-left:10px"><i class="fa-solid fa-info-circle"></i> Token 会保存在本地浏览器中</span>
+        </div>
+    </div>
+
+    <!-- 操作区域 -->
+    <div class="config-box" id="actionArea" style="display:none">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h3 style="margin:0">2. 数据列表 (<span id="itemCount">0</span>)</h3>
+            <button onclick="openModal()"><i class="fa-solid fa-plus"></i> 新增附魔书</button>
+        </div>
+        
+        <!-- 搜索框 -->
+        <div style="margin-bottom:15px;">
+            <input type="text" id="searchBox" placeholder="搜索附魔书名称..." oninput="filterTable()" style="width:100%;padding:12px;">
+        </div>
+
+        <div style="max-height: 600px; overflow-y: auto; border:1px solid #eee; border-radius:8px;">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th style="width:25%">名称</th>
+                        <th style="width:15%">价格</th>
+                        <th style="width:15%">品质</th>
+                        <th style="width:25%">适用</th>
+                        <th style="width:20%">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+        <div style="margin-top: 20px; text-align: right; padding-top:15px; border-top:1px solid #eee">
+            <button onclick="pushToGitHub()" style="background:#409eff;padding:12px 24px;font-size:1rem">
+                <i class="fa-solid fa-cloud-upload"></i> 发布更新到 GitHub
+            </button>
+        </div>
+    </div>
+
+    <!-- 编辑/新增 弹窗 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="margin-top:0">编辑附魔书</h3>
+            <input type="hidden" id="editIndex">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px">
+                <div class="input-group" style="grid-column:span 2"><label>名称:</label><input type="text" id="inputName"></div>
+                <div class="input-group"><label>等级:</label><input type="text" id="inputLevel" placeholder="例如: 七级"></div>
+                <div class="input-group"><label>价格:</label><input type="number" id="inputPrice"></div>
+                <div class="input-group"><label>品质:</label>
+                    <select id="inputColor">
+                        <option value="白">白 (普通)</option>
+                        <option value="绿">绿 (优秀)</option>
+                        <option value="蓝">蓝 (稀有)</option>
+                        <option value="紫">紫 (史诗)</option>
+                        <option value="金">金 (传说)</option>
+                        <option value="红">红 (神话)</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>冲突:</label><input type="text" id="inputConflicts" placeholder="例如: 锋利, 亡灵杀手"></div>
+                <div class="input-group" style="grid-column:span 2"><label>适用:</label><input type="text" id="inputTarget" placeholder="例如: 剑, 斧"></div>
+                <div class="input-group" style="grid-column:span 2"><label>描述:</label><textarea id="inputDesc" rows="3"></textarea></div>
+            </div>
+            
+            <div style="display:flex; gap:10px; margin-top:25px; justify-content:flex-end">
+                <button class="secondary" onclick="closeModal()">取消</button>
+                <button onclick="saveItem()">保存到列表</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="status-bar"></div>
+
+    <script>
+        let items = [];
+        let sha = ''; 
+        
+        const colorMap = {
+            '白': 'tag-white', '绿': 'tag-green', '蓝': 'tag-blue', 
+            '紫': 'tag-purple', '金': 'tag-gold', '红': 'tag-red'
+        };
+
+        // 初始化
+        window.onload = () => {
+            // 恢复 Token
+            document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
+            
+            // 这里已为您预填了信息
+            document.getElementById('ghOwner').value = 'C-4-C-4';
+            document.getElementById('ghRepo').value = 'Enchanted-Book';
+            
+            // 如果有 Token，自动尝试加载
+            if(document.getElementById('ghToken').value) {
+                loadFromGitHub();
+            }
+        };
+
+        function saveConfig() {
+            localStorage.setItem('gh_token', document.getElementById('ghToken').value);
+            // localStorage.setItem('gh_owner', ...); // 不需要存了，因为已经硬编码
+            // localStorage.setItem('gh_repo', ...);
+            loadFromGitHub();
+        }
+
+        // 从 GitHub API 获取数据
+        async function loadFromGitHub() {
+            const token = document.getElementById('ghToken').value;
+            const owner = document.getElementById('ghOwner').value;
+            const repo = document.getElementById('ghRepo').value;
+            const path = document.getElementById('ghPath').value;
+            
+            if(!token) return showToast('请填写 Token', 'error');
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+            
+            try {
+                showToast('<i class="fa-solid fa-spinner fa-spin"></i> 正在加载数据...', 'success');
+                const res = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (!res.ok) throw new Error(await res.text());
+                
+                const data = await res.json();
+                sha = data.sha; 
+                
+                // 解码 Base64 (支持 UTF-8)
+                const content = decodeURIComponent(escape(window.atob(data.content)));
+                items = JSON.parse(content);
+                
+                renderTable();
+                document.getElementById('actionArea').style.display = 'block';
+                showToast('数据加载成功', 'success');
+            } catch (e) {
+                showToast('加载失败: ' + e.message, 'error');
+                if(e.message.includes('404')) {
+                    items = [];
+                    document.getElementById('actionArea').style.display = 'block';
+                    showToast('未找到 data.json，发布时将自动创建', 'success');
+                }
+            }
+        }
+
+        // 渲染列表
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const filter = document.getElementById('searchBox').value.toLowerCase();
+            tbody.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                // 搜索过滤
+                if(filter && !item.name_zh.toLowerCase().includes(filter) && !item.target_zh.includes(filter)) return;
+
+                const tr = document.createElement('tr');
+                const colorClass = colorMap[item.color] || 'tag-white';
+                tr.innerHTML = `
+                    <td style="font-weight:bold;color:#2c3e50">${item.name_zh}</td>
+                    <td style="color:#d35400;font-weight:600">🪙 ${item.price}</td>
+                    <td><span class="tag ${colorClass}">${item.color}</span></td>
+                    <td style="font-size:0.9rem;color:#666">${item.target_zh}</td>
+                    <td>
+                        <button class="secondary" onclick="editItem(${index})" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                        <button class="delete" onclick="deleteItem(${index})" title="删除"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            document.getElementById('itemCount').innerText = items.length;
+        }
+
+        function filterTable() {
+            renderTable();
+        }
+
+        // 弹窗操作
+        function openModal() {
+            document.getElementById('modalTitle').innerText = '新增附魔书';
+            document.getElementById('editIndex').value = '-1';
+            document.getElementById('inputName').value = '';
+            document.getElementById('inputLevel').value = '七级';
+            document.getElementById('inputPrice').value = '';
+            document.getElementById('inputColor').value = '白';
+            document.getElementById('inputDesc').value = '';
+            document.getElementById('inputTarget').value = '';
+            document.getElementById('inputConflicts').value = '';
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function editItem(index) {
+            const item = items[index];
+            document.getElementById('modalTitle').innerText = '编辑附魔书';
+            document.getElementById('editIndex').value = index;
+            document.getElementById('inputName').value = item.name_zh;
+            document.getElementById('inputLevel').value = item.level_zh;
+            document.getElementById('inputPrice').value = item.price;
+            document.getElementById('inputColor').value = item.color;
+            document.getElementById('inputDesc').value = item.desc_zh;
+            document.getElementById('inputTarget').value = item.target_zh;
+            document.getElementById('inputConflicts').value = item.conflicts_zh;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function saveItem() {
+            const index = parseInt(document.getElementById('editIndex').value);
+            const name = document.getElementById('inputName').value;
+            if(!name) return alert('名称不能为空');
+
+            const newItem = {
+                id: name, // 使用名称作为ID
+                name_zh: name,
+                level_zh: document.getElementById('inputLevel').value,
+                price: document.getElementById('inputPrice').value,
+                desc_zh: document.getElementById('inputDesc').value,
+                color: document.getElementById('inputColor').value,
+                target_zh: document.getElementById('inputTarget').value,
+                conflicts_zh: document.getElementById('inputConflicts').value || '无冲突'
+            };
+
+            if (index === -1) {
+                items.push(newItem);
+            } else {
+                items[index] = newItem;
+            }
+            
+            renderTable();
+            closeModal();
+            showToast('已保存到暂存列表 (记得发布到 GitHub)', 'success');
+        }
+
+        function deleteItem(index) {
+            if(confirm('确定要删除这个附魔书吗？')) {
+                items.splice(index, 1);
+                renderTable();
+            }
+        }
+
+        // 核心：保存回 GitHub
+        async function pushToGitHub() {
+            const token = document.getElementById('ghToken').value;
+            const owner = document.getElementById('ghOwner').value;
+            const repo = document.getElementById('ghRepo').value;
+            const path = document.getElementById('ghPath').value;
+
+            if(!token) return showToast('缺少 Token', 'error');
+
+            const contentStr = JSON.stringify(items, null, 4); 
+            // 编码 UTF-8 内容为 Base64
+            const contentBase64 = window.btoa(unescape(encodeURIComponent(contentStr)));
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            const body = {
+                message: "Update data via Admin Panel", 
+                content: contentBase64,
+                sha: sha 
+            };
+
+            try {
+                showToast('<i class="fa-solid fa-spinner fa-spin"></i> 正在发布...', 'success');
+                const res = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!res.ok) throw new Error(await res.text());
+                
+                const data = await res.json();
+                sha = data.content.sha; 
+                showToast('✅ 发布成功！页面稍后会自动更新。', 'success');
+            } catch (e) {
+                showToast('发布失败: ' + e.message, 'error');
+            }
+        }
+
+        function showToast(msg, type) {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = msg;
+            toast.className = 'status-bar ' + type;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        // 点击外部关闭弹窗
+        document.getElementById('editModal').addEventListener('click', (e) => {
+            if(e.target === document.getElementById('editModal')) closeModal();
+        });
+    </script>
+</body>
+</html>
