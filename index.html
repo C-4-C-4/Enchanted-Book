@@ -989,8 +989,41 @@ function checkTimeTheme() {
     }
 }
 
+// --- 新增：重置搜索状态函数 ---
+function resetToHome() {
+    currentSearch = '';
+    currentFilter = 'all';
+    
+    // 清空输入框
+    const input = document.getElementById('searchInput');
+    if(input) input.value = '';
+    
+    // 重置筛选按钮
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('.filter-btn[data-color="all"]');
+    if(allBtn) allBtn.classList.add('active');
+    
+    render();
+}
+
+// --- 辅助：推入历史状态 ---
+function pushSearchState() {
+    // 只有当当前不在搜索状态（history.state为空或不含searching标志）时才推入
+    if (!history.state || !history.state.searching) {
+        history.pushState({ searching: true }, '');
+    }
+}
+
 // 事件绑定
 function setupEventListeners() {
+    // --- 新增：监听浏览器返回事件 (Popstate) ---
+    window.addEventListener('popstate', (event) => {
+        // 如果回到了空状态（即没有searching标志），则重置页面
+        if (!event.state || !event.state.searching) {
+            resetToHome();
+        }
+    });
+
     // Lang Switch
     document.querySelectorAll('#langSwitch .toggle-option').forEach((opt, idx) => {
         opt.addEventListener('click', () => {
@@ -1020,13 +1053,27 @@ function setupEventListeners() {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            currentFilter = btn.dataset.color; render();
+            currentFilter = btn.dataset.color;
+            
+            // 如果点击的不是"全部"，则推入历史状态
+            if (currentFilter !== 'all') {
+                pushSearchState();
+            } else if (currentSearch === '') {
+                 // 如果切回"全部"且没有搜索词，且当前在搜索状态，可以考虑是否回退(可选，这里为了简单不做回退)
+            }
+            
+            render();
         });
     });
 
     // Search
     document.getElementById('searchInput').addEventListener('input', e => { 
-        currentSearch = e.target.value.toLowerCase(); render(); 
+        currentSearch = e.target.value.toLowerCase();
+        // 只要有输入内容，推入历史状态
+        if (currentSearch.trim() !== '') {
+            pushSearchState();
+        }
+        render(); 
     });
 
     // Confirm Modal
@@ -1040,8 +1087,10 @@ function setupEventListeners() {
             if (modalOverlay.classList.contains('active')) return closeModal();
             if (cartSidebar.classList.contains('open')) return closeSidebar();
             if (document.getElementById('searchInput').value !== '') { 
-                document.getElementById('searchInput').value = ''; 
-                currentSearch = ''; render(); 
+                // PC端 ESC 键逻辑也复用重置
+                resetToHome();
+                // 如果有历史记录，也可以回退
+                if (history.state && history.state.searching) history.back();
             }
         }
     });
