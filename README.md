@@ -49,12 +49,13 @@
 *   或直接在本地浏览器打开 `index.html`。
 
 ### 2. 文件结构
-```text
+```
 .
 ├── index.html      # 用户查询主页
 ├── admin.html      # 管理员后台
 ├── data.json       # 数据存储文件
 └── README.md       # 项目文档
+```
 
 ⚙️ 管理后台配置 (Admin Setup)
 要使用 admin.html 管理数据，您需要进行以下配置：
@@ -65,6 +66,7 @@
 打开 admin.html。
 在代码中找到以下隐藏的 input 区域（约第 150 行），修改 value 为您的实际信息：
 
+```
 <div style="display:none">
     <!-- 修改为你的 GitHub 用户名 -->
     <input type="text" id="ghOwner" value="Your-GitHub-Username">
@@ -73,6 +75,7 @@
     <!-- 数据文件路径，通常无需修改 -->
     <input type="text" id="ghPath" value="data.json">
 </div>
+```
 
 3.登录使用:
 在浏览器打开 admin.html。
@@ -81,6 +84,7 @@
 📊 数据结构 (Data Structure)
 data.json 存储了所有附魔书信息，格式如下：
 
+```
 [
   {
     "id": "附魔名称",
@@ -93,8 +97,8 @@ data.json 存储了所有附魔书信息，格式如下：
     "conflicts_zh": "冲突附魔1, 冲突附魔2"
   }
 ]
+```
 
-]
 品质颜色对照
 颜色	品质	代表含义
 白	普通	Common
