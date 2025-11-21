@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>附魔书管理后台 - Pro v2</title>
+    <title>附魔书管理后台 - Pro v2.1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -145,7 +145,7 @@
     <div id="login-container">
         <div class="glass-panel login-box">
             <h2 style="margin-bottom:30px; font-weight:300"><i class="fa-solid fa-shield-halved"></i> 管理员验证</h2>
-            <input type="password" id="ghToken" placeholder="请输入密钥 (SLXZ3238)">
+            <input type="password" id="ghToken" placeholder="请输入密钥">
             
             <div style="display:none">
                 <input type="text" id="ghOwner" value="C-4-C-4">
@@ -273,19 +273,12 @@
                                style="background:rgba(0,0,0,0.3); border:none; width:300px; margin:0">
                     </div>
 
-                    <!-- 等级筛选 (包含无等级) -->
+                    <!-- 等级筛选 (动态生成) -->
                     <div class="filter-row">
                         <div class="filter-label">等级</div>
                         <div class="filter-btn-group" id="filterLevelGroup">
+                            <!-- JS 将从 data.json 中提取等级并生成按钮 -->
                             <div class="filter-btn active" onclick="setFilter('level', 'all', this)">全部</div>
-                            <div class="filter-btn" onclick="setFilter('level', '无等级', this)">无等级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '一级', this)">一级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '二级', this)">二级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '三级', this)">三级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '四级', this)">四级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '五级', this)">五级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '六级', this)">六级</div>
-                            <div class="filter-btn" onclick="setFilter('level', '七级', this)">七级</div>
                         </div>
                     </div>
 
@@ -321,11 +314,7 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        const SHORT_CODE = "SLXZ3238"; 
-        const PART_1 = ""; // 填入 Token 前半段
-        const PART_2 = ""; // 填入 Token 后半段
-        const REAL_TOKEN = PART_1 + PART_2;
-
+        // [修改1] 移除硬编码 Token 变量
         let items = [];
         let sha = ''; 
 
@@ -352,9 +341,9 @@
             }
         };
 
+        // [修改1] 直接读取输入框的值
         function getAuthToken() {
-            const val = document.getElementById('ghToken').value;
-            return val === SHORT_CODE ? REAL_TOKEN : val;
+            return document.getElementById('ghToken').value.trim();
         }
 
         async function attemptLogin() {
@@ -381,13 +370,14 @@
                 sha = data.sha;
                 items = JSON.parse(decodeURIComponent(escape(window.atob(data.content))));
 
-                localStorage.setItem('admin_pass', document.getElementById('ghToken').value);
+                localStorage.setItem('admin_pass', token);
                 document.getElementById('login-container').style.display = 'none';
                 document.getElementById('dashboard-container').style.display = 'flex';
                 
                 // 初始化动态数据
-                updateConflictTagsFromData(); // 需求1: 冲突来源于data.json
-                updateTargetFilterButtons();  // 需求2: 适用筛选按钮动态生成
+                updateConflictTagsFromData(); // 冲突来源于data.json
+                updateTargetFilterButtons();  // 适用筛选动态生成
+                updateLevelFilterButtons();   // [修改2] 等级筛选动态生成
 
                 switchTab('add');
                 showToast("连接成功", "success");
@@ -405,12 +395,11 @@
 
         // ================= 数据初始化逻辑 =================
 
-        // 需求1: 从 data.json 提取已有附魔名称作为冲突候选项
+        // 从 data.json 提取已有附魔名称作为冲突候选项
         function updateConflictTagsFromData() {
             const container = document.getElementById('conflictTagsContainer');
             container.innerHTML = '';
             
-            // 提取去重
             const uniqueNames = [...new Set(items.map(i => i.name_zh))];
             
             if(uniqueNames.length === 0) {
@@ -427,25 +416,59 @@
             });
         }
 
-        // 需求2: 从 data.json 提取适用工具生成筛选按钮
+        // 从 data.json 提取适用工具生成筛选按钮
         function updateTargetFilterButtons() {
             const container = document.getElementById('filterTargetGroup');
-            // 保留第一个 "全部" 按钮
             container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'target\', \'all\', this)">全部</div>';
             
-            // 提取所有 target_zh，拆分逗号，去重
             let allTargets = [];
             items.forEach(item => {
                 const targets = item.target_zh.split(/[,，]/).map(t => t.trim());
                 allTargets = allTargets.concat(targets);
             });
-            const uniqueTargets = [...new Set(allTargets)].filter(t => t); // 去空
+            const uniqueTargets = [...new Set(allTargets)].filter(t => t);
 
             uniqueTargets.forEach(target => {
                 const btn = document.createElement('div');
                 btn.className = 'filter-btn';
                 btn.innerText = target;
                 btn.onclick = function() { setFilter('target', target, this); };
+                container.appendChild(btn);
+            });
+        }
+
+        // [修改2] 从 data.json 提取等级生成筛选按钮
+        function updateLevelFilterButtons() {
+            const container = document.getElementById('filterLevelGroup');
+            // 保留 "全部" 按钮
+            container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'level\', \'all\', this)">全部</div>';
+
+            // 提取去重
+            const uniqueLevels = [...new Set(items.map(i => i.level_zh))];
+
+            // 自定义排序：无等级在最前，然后是一到十级，其他（如罗马数字）在后
+            const sortOrder = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级", "八级", "九级", "十级"];
+            
+            uniqueLevels.sort((a, b) => {
+                const indexA = sortOrder.indexOf(a);
+                const indexB = sortOrder.indexOf(b);
+                
+                // 如果都在预设列表中，按列表顺序
+                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                // 如果a在列表中，b不在，a排前
+                if (indexA !== -1) return -1;
+                // 如果b在列表中，a不在，b排前
+                if (indexB !== -1) return 1;
+                // 都不在列表中，按字符串默认排序
+                return a.localeCompare(b, 'zh-CN');
+            });
+
+            uniqueLevels.forEach(level => {
+                if (!level) return; // 跳过空值
+                const btn = document.createElement('div');
+                btn.className = 'filter-btn';
+                btn.innerText = level;
+                btn.onclick = function() { setFilter('level', level, this); };
                 container.appendChild(btn);
             });
         }
@@ -485,14 +508,15 @@
             document.getElementById('view-' + tab).classList.add('active');
             
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            // 简单高亮对应菜单
             const navs = document.querySelectorAll('.nav-item');
             if(tab==='add') navs[0].classList.add('active');
             if(tab==='delete') navs[1].classList.add('active');
             if(tab==='list') navs[2].classList.add('active');
 
             if(tab === 'list') {
-                updateTargetFilterButtons(); // 每次进入总览刷新一次筛选器，防止新增后未更新
+                // 每次进入总览刷新筛选器，防止新增数据后未更新
+                updateTargetFilterButtons(); 
+                updateLevelFilterButtons();
                 renderCards('list');
             }
             if(tab === 'delete') renderCards('delete');
@@ -544,13 +568,8 @@
 
                 // 总览筛选逻辑
                 if(mode === 'list') {
-                    // 等级筛选: 支持 "all", "无等级", "一级"...
                     if(currentFilters.level !== 'all' && item.level_zh !== currentFilters.level) return;
-                    
-                    // 品质筛选
                     if(currentFilters.quality !== 'all' && item.color !== currentFilters.quality) return;
-                    
-                    // 适用筛选: 只要 target 字符串包含选中的标签即可 (例如 "剑, 斧" 包含 "剑")
                     if(currentFilters.target !== 'all' && !item.target_zh.includes(currentFilters.target)) return;
                 }
 
@@ -562,7 +581,6 @@
                     btnHtml = `<button class="btn btn-danger" style="padding:5px 10px; font-size:0.8rem" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>`;
                 }
 
-                // 处理显示 "无等级"
                 const levelDisplay = item.level_zh === '无等级' ? '无等级' : item.level_zh;
 
                 card.innerHTML = `
@@ -605,9 +623,10 @@
             items.push(newItem);
             showToast("已保存 (需发布)", "success");
             
-            // 实时更新冲突列表和筛选器
+            // 实时更新动态列表
             updateConflictTagsFromData();
             updateTargetFilterButtons();
+            updateLevelFilterButtons(); // 新增物品后更新等级筛选
             
             // 清空部分输入
             document.getElementById('inputName').value = '';
@@ -618,14 +637,15 @@
             if(confirm("确定删除？")) {
                 items.splice(index, 1);
                 renderCards('delete');
-                updateConflictTagsFromData(); // 删除后也更新列表
+                updateConflictTagsFromData(); 
+                updateLevelFilterButtons(); // 删除后更新等级筛选
                 showToast("已删除", "success");
             }
         }
 
         async function pushToGitHub() {
             const token = getAuthToken();
-            if(!token) return;
+            if(!token) return showToast("密钥无效", "error");
 
             const owner = document.getElementById('ghOwner').value;
             const repo = document.getElementById('ghRepo').value;
