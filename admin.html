@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>附魔书管理后台 - Pro v2.1</title>
+    <title>附魔书管理后台 - Pro v2.2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -14,6 +14,7 @@
             --text-color: #fff;
             --accent-color: #3eaf7c;
             --danger-color: #f56c6c;
+            --warning-color: #e6a23c;
             --input-bg: rgba(0, 0, 0, 0.25);
         }
 
@@ -61,15 +62,38 @@
         }
         .btn-primary { background: var(--accent-color); color: white; }
         .btn-danger { background: var(--danger-color); color: white; }
+        .btn-warning { background: var(--warning-color); color: black; }
         
         /* 布局 */
         #dashboard-container { display: none; width: 100%; height: 100%; display: flex; }
         .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
         .nav-item { padding: 15px; cursor: pointer; border-radius: 12px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 15px; }
         .nav-item.active { background: var(--accent-color); color: #fff; }
-        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
         .content-section { display: none; animation: fadeIn 0.4s ease; }
         .content-section.active { display: block; }
+
+        /* 待更新列表面板 */
+        #pending-panel {
+            position: fixed; right: 20px; top: 90px; width: 320px;
+            max-height: calc(100vh - 120px); overflow-y: auto;
+            display: none; flex-direction: column; gap: 10px; padding: 15px;
+            z-index: 900; animation: slideInRight 0.3s ease;
+        }
+        .pending-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px; border-radius: 8px; font-size: 0.9rem;
+            background: rgba(0,0,0,0.3); border-left: 3px solid transparent;
+        }
+        .pending-item.type-add { border-left-color: var(--accent-color); }
+        .pending-item.type-delete { border-left-color: var(--danger-color); }
+        
+        .pending-badge {
+            position: absolute; top: -5px; right: -5px;
+            background: var(--danger-color); color: white;
+            border-radius: 50%; width: 20px; height: 20px;
+            font-size: 0.75rem; display: flex; justify-content: center; align-items: center;
+        }
 
         /* 表单样式 */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; }
@@ -89,7 +113,7 @@
         .q-btn { padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; border: 2px solid transparent; opacity: 0.7; }
         .q-btn.active { opacity: 1; border-color: #fff; transform: scale(1.05); }
 
-        /* 标签云 (Tag Cloud) */
+        /* 标签云 */
         .tags-wrapper {
             background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px;
             margin-top: 5px; border: 1px solid rgba(255,255,255,0.05);
@@ -106,7 +130,6 @@
         .filter-panel { padding: 20px; margin-bottom: 20px; }
         .filter-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
         .filter-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); width: 70px; }
-        
         .filter-btn-group { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
         .filter-btn {
             padding: 6px 14px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
@@ -131,12 +154,13 @@
 
         .toast {
             position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; border-radius: 8px; 
-            color: #fff; transform: translateY(100px); opacity: 0; transition: 0.3s;
+            color: #fff; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 2000;
         }
         .toast.active { transform: translateY(0); opacity: 1; }
         .toast.success { background: #67c23a; } .toast.error { background: #f56c6c; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
@@ -182,9 +206,23 @@
         <div class="main-content">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
                 <h1 id="pageTitle" style="margin:0; font-size:1.8rem">增加附魔书</h1>
-                <button class="btn btn-primary" onclick="pushToGitHub()">
-                    <i class="fa-solid fa-cloud-arrow-up"></i> 发布更新到 GitHub
-                </button>
+                
+                <div style="position:relative">
+                    <button class="btn btn-primary" id="pushBtn" onclick="pushToGitHub()">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> 发布更新到 GitHub
+                    </button>
+                    <div id="pendingBadge" class="pending-badge" style="display:none">0</div>
+                </div>
+            </div>
+
+            <!-- 待更新列表 (Floating) -->
+            <div id="pending-panel" class="glass-panel">
+                <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); margin-bottom:10px">
+                    <i class="fa-solid fa-clock-rotate-left"></i> 待发布更改
+                </div>
+                <div id="pendingListContainer">
+                    <!-- 动态插入 -->
+                </div>
             </div>
 
             <!-- 功能1: 增加 -->
@@ -248,7 +286,7 @@
                         </div>
 
                         <div class="form-group full">
-                            <button class="btn btn-primary" style="width:100%" onclick="saveItem()">保存</button>
+                            <button class="btn btn-primary" style="width:100%" onclick="saveItem()">保存到暂存区</button>
                         </div>
                     </div>
                 </div>
@@ -273,11 +311,10 @@
                                style="background:rgba(0,0,0,0.3); border:none; width:300px; margin:0">
                     </div>
 
-                    <!-- 等级筛选 (动态生成) -->
+                    <!-- 等级筛选 -->
                     <div class="filter-row">
                         <div class="filter-label">等级</div>
                         <div class="filter-btn-group" id="filterLevelGroup">
-                            <!-- JS 将从 data.json 中提取等级并生成按钮 -->
                             <div class="filter-btn active" onclick="setFilter('level', 'all', this)">全部</div>
                         </div>
                     </div>
@@ -296,11 +333,10 @@
                         </div>
                     </div>
 
-                    <!-- 适用工具筛选 (按钮模式，动态生成) -->
+                    <!-- 适用工具筛选 -->
                     <div class="filter-row">
                         <div class="filter-label">适用</div>
                         <div class="filter-btn-group" id="filterTargetGroup">
-                            <!-- JS 将从 data.json 中提取工具类型并生成按钮 -->
                             <div class="filter-btn active" onclick="setFilter('target', 'all', this)">全部</div>
                         </div>
                     </div>
@@ -314,18 +350,16 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        // [修改1] 移除硬编码 Token 变量
         let items = [];
         let sha = ''; 
+        let pendingChanges = []; // 存储待更新的操作 {id, type, item}
 
-        // 筛选状态
         let currentFilters = {
             level: 'all',
             quality: 'all',
             target: 'all'
         };
 
-        // 预设工具列表 (用于 Add 界面辅助输入)
         const PRESET_TOOLS = [
             "剑", "斧", "镐", "锹", "锄", "弓", "弩", "三叉戟", 
             "头盔", "胸甲", "护腿", "靴子", "盾牌", "鞘翅", "钓鱼竿", "工具", "盔甲", "全物品"
@@ -341,7 +375,6 @@
             }
         };
 
-        // [修改1] 直接读取输入框的值
         function getAuthToken() {
             return document.getElementById('ghToken').value.trim();
         }
@@ -374,11 +407,7 @@
                 document.getElementById('login-container').style.display = 'none';
                 document.getElementById('dashboard-container').style.display = 'flex';
                 
-                // 初始化动态数据
-                updateConflictTagsFromData(); // 冲突来源于data.json
-                updateTargetFilterButtons();  // 适用筛选动态生成
-                updateLevelFilterButtons();   // [修改2] 等级筛选动态生成
-
+                refreshDynamicData();
                 switchTab('add');
                 showToast("连接成功", "success");
 
@@ -393,20 +422,22 @@
             }
         }
 
-        // ================= 数据初始化逻辑 =================
+        // 统一刷新所有动态数据
+        function refreshDynamicData() {
+            updateConflictTagsFromData();
+            updateTargetFilterButtons();
+            updateLevelFilterButtons();
+        }
 
-        // 从 data.json 提取已有附魔名称作为冲突候选项
         function updateConflictTagsFromData() {
             const container = document.getElementById('conflictTagsContainer');
             container.innerHTML = '';
             
             const uniqueNames = [...new Set(items.map(i => i.name_zh))];
-            
             if(uniqueNames.length === 0) {
                 container.innerHTML = '<span style="font-size:0.8rem; color:rgba(255,255,255,0.4)">暂无数据，请先添加附魔书</span>';
                 return;
             }
-
             uniqueNames.sort().forEach(name => {
                 const tag = document.createElement('div');
                 tag.className = 'tag-choice';
@@ -416,7 +447,6 @@
             });
         }
 
-        // 从 data.json 提取适用工具生成筛选按钮
         function updateTargetFilterButtons() {
             const container = document.getElementById('filterTargetGroup');
             container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'target\', \'all\', this)">全部</div>';
@@ -427,7 +457,6 @@
                 allTargets = allTargets.concat(targets);
             });
             const uniqueTargets = [...new Set(allTargets)].filter(t => t);
-
             uniqueTargets.forEach(target => {
                 const btn = document.createElement('div');
                 btn.className = 'filter-btn';
@@ -437,34 +466,23 @@
             });
         }
 
-        // [修改2] 从 data.json 提取等级生成筛选按钮
         function updateLevelFilterButtons() {
             const container = document.getElementById('filterLevelGroup');
-            // 保留 "全部" 按钮
             container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'level\', \'all\', this)">全部</div>';
-
-            // 提取去重
             const uniqueLevels = [...new Set(items.map(i => i.level_zh))];
-
-            // 自定义排序：无等级在最前，然后是一到十级，其他（如罗马数字）在后
             const sortOrder = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级", "八级", "九级", "十级"];
             
             uniqueLevels.sort((a, b) => {
                 const indexA = sortOrder.indexOf(a);
                 const indexB = sortOrder.indexOf(b);
-                
-                // 如果都在预设列表中，按列表顺序
                 if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                // 如果a在列表中，b不在，a排前
                 if (indexA !== -1) return -1;
-                // 如果b在列表中，a不在，b排前
                 if (indexB !== -1) return 1;
-                // 都不在列表中，按字符串默认排序
                 return a.localeCompare(b, 'zh-CN');
             });
 
             uniqueLevels.forEach(level => {
-                if (!level) return; // 跳过空值
+                if (!level) return;
                 const btn = document.createElement('div');
                 btn.className = 'filter-btn';
                 btn.innerText = level;
@@ -473,13 +491,12 @@
             });
         }
 
-        // Add 界面的辅助初始化
         function initAddLevelButtons() {
             const container = document.getElementById('addLevelContainer');
             const levels = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级"];
             levels.forEach((lvl, idx) => {
                 const btn = document.createElement('div');
-                btn.className = 'level-btn' + (idx === 1 ? ' active' : ''); // 默认选中一级
+                btn.className = 'level-btn' + (idx === 1 ? ' active' : '');
                 btn.innerText = lvl === "无等级" ? "无" : (idx);
                 btn.onclick = () => {
                     document.querySelectorAll('#addLevelContainer .level-btn').forEach(b => b.classList.remove('active'));
@@ -501,8 +518,6 @@
             });
         }
 
-        // ================= 交互逻辑 =================
-
         function switchTab(tab) {
             document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + tab).classList.add('active');
@@ -514,9 +529,7 @@
             if(tab==='list') navs[2].classList.add('active');
 
             if(tab === 'list') {
-                // 每次进入总览刷新筛选器，防止新增数据后未更新
-                updateTargetFilterButtons(); 
-                updateLevelFilterButtons();
+                refreshDynamicData();
                 renderCards('list');
             }
             if(tab === 'delete') renderCards('delete');
@@ -543,30 +556,21 @@
             el.classList.add('active');
         }
 
-        // ================= 筛选与渲染 =================
-
         function setFilter(type, value, btnElement) {
             currentFilters[type] = value;
-            
-            // 更新按钮样式
             const group = btnElement.parentElement;
             group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
-            
             renderCards('list');
         }
 
         function renderCards(mode) {
             const container = document.getElementById(mode === 'delete' ? 'deleteCardGrid' : 'listCardGrid');
             container.innerHTML = '';
-
             const searchText = document.getElementById(mode === 'delete' ? 'searchDelete' : 'searchList').value.toLowerCase();
 
             items.forEach((item, index) => {
-                // 基础文本搜索
                 if(searchText && !item.name_zh.toLowerCase().includes(searchText)) return;
-
-                // 总览筛选逻辑
                 if(mode === 'list') {
                     if(currentFilters.level !== 'all' && item.level_zh !== currentFilters.level) return;
                     if(currentFilters.quality !== 'all' && item.color !== currentFilters.quality) return;
@@ -603,7 +607,87 @@
             if(container.innerHTML === '') container.innerHTML = '<div style="color:gray; padding:20px">没有找到匹配的附魔书</div>';
         }
 
-        // ================= CRUD 操作 =================
+        // ================= 核心逻辑：待更新系统 =================
+
+        function renderPendingList() {
+            const container = document.getElementById('pendingListContainer');
+            const panel = document.getElementById('pending-panel');
+            const badge = document.getElementById('pendingBadge');
+            
+            container.innerHTML = '';
+            
+            if(pendingChanges.length === 0) {
+                panel.style.display = 'none';
+                badge.style.display = 'none';
+                document.getElementById('pushBtn').innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> 发布更新到 GitHub`;
+                return;
+            }
+
+            // 更新UI
+            panel.style.display = 'flex';
+            badge.style.display = 'flex';
+            badge.innerText = pendingChanges.length;
+            document.getElementById('pushBtn').innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> 发布更新 (${pendingChanges.length})`;
+
+            pendingChanges.forEach((change) => {
+                const el = document.createElement('div');
+                el.className = `pending-item type-${change.type}`;
+                
+                const typeText = change.type === 'add' ? '新增' : '删除';
+                const typeColor = change.type === 'add' ? '#67c23a' : '#f56c6c';
+                
+                el.innerHTML = `
+                    <div>
+                        <span style="color:${typeColor}; font-weight:bold; margin-right:8px">[${typeText}]</span>
+                        ${change.item.name_zh} <span style="font-size:0.8em; opacity:0.7">(${change.item.level_zh})</span>
+                    </div>
+                    <button class="btn btn-warning" style="padding:4px 8px; font-size:0.75rem" onclick="undoChange(${change.id})">
+                        <i class="fa-solid fa-rotate-left"></i> 撤回
+                    </button>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function addToPending(type, item) {
+            pendingChanges.push({
+                id: Date.now() + Math.random(), // 唯一ID
+                type: type,
+                item: item
+            });
+            renderPendingList();
+        }
+
+        // 撤回操作
+        function undoChange(changeId) {
+            const index = pendingChanges.findIndex(c => c.id === changeId);
+            if(index === -1) return;
+
+            const change = pendingChanges[index];
+
+            if (change.type === 'add') {
+                // 如果之前是新增，现在撤回需要删除该物品
+                // 由于items中对象引用可能一致，我们尝试用引用删除，或者用属性匹配
+                const itemIdx = items.indexOf(change.item);
+                if (itemIdx > -1) {
+                    items.splice(itemIdx, 1);
+                }
+            } else if (change.type === 'delete') {
+                // 如果之前是删除，现在撤回需要把物品加回去
+                items.push(change.item);
+            }
+
+            pendingChanges.splice(index, 1);
+            
+            refreshDynamicData();
+            // 刷新当前视图
+            const activeTab = document.querySelector('.nav-item.active').innerText.includes('删除') ? 'delete' : 
+                              document.querySelector('.nav-item.active').innerText.includes('总览') ? 'list' : 'add';
+            if(activeTab !== 'add') renderCards(activeTab);
+            
+            renderPendingList();
+            showToast("已撤回操作", "success");
+        }
 
         function saveItem() {
             const name = document.getElementById('inputName').value;
@@ -621,29 +705,32 @@
             };
 
             items.push(newItem);
-            showToast("已保存 (需发布)", "success");
+            addToPending('add', newItem);
             
-            // 实时更新动态列表
-            updateConflictTagsFromData();
-            updateTargetFilterButtons();
-            updateLevelFilterButtons(); // 新增物品后更新等级筛选
+            showToast("已添加到待更新列表", "success");
             
-            // 清空部分输入
+            refreshDynamicData();
+            
             document.getElementById('inputName').value = '';
             document.getElementById('inputDesc').value = '';
         }
 
         function deleteItem(index) {
-            if(confirm("确定删除？")) {
+            if(confirm("确定将此删除操作加入待更新列表？")) {
+                const deletedItem = items[index];
                 items.splice(index, 1);
+                
+                addToPending('delete', deletedItem);
+                
                 renderCards('delete');
-                updateConflictTagsFromData(); 
-                updateLevelFilterButtons(); // 删除后更新等级筛选
-                showToast("已删除", "success");
+                refreshDynamicData();
+                showToast("删除已暂存", "success");
             }
         }
 
         async function pushToGitHub() {
+            if(pendingChanges.length === 0) return showToast("没有需要更新的内容", "error");
+
             const token = getAuthToken();
             if(!token) return showToast("密钥无效", "error");
 
@@ -657,13 +744,18 @@
                 const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: "Update via Admin", content: content, sha: sha })
+                    body: JSON.stringify({ message: `Update: ${pendingChanges.length} changes via Admin`, content: content, sha: sha })
                 });
                 
                 if(!res.ok) throw new Error(await res.text());
                 const data = await res.json();
                 sha = data.content.sha;
-                showToast("✅ 发布成功", "success");
+                
+                // 成功后清空待处理列表
+                pendingChanges = [];
+                renderPendingList();
+                
+                showToast("✅ 发布成功，列表已清空", "success");
             } catch(e) {
                 showToast("发布失败: " + e.message, "error");
             }
