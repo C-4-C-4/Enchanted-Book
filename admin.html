@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>附魔书管理后台 - Pro Glass UI</title>
+    <title>附魔书管理后台 - Pro v2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -27,13 +27,10 @@
             overflow: hidden;
         }
 
-        /* 滚动条美化 */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
 
-        /* 玻璃容器 */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: var(--backdrop);
@@ -43,134 +40,88 @@
             border-radius: 16px;
         }
 
-        /* ================= 登录页 ================= */
+        /* 登录页 */
         #login-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
             z-index: 1000; background: inherit;
         }
         .login-box { width: 400px; padding: 40px; text-align: center; }
-        .login-title { font-size: 1.8rem; margin-bottom: 30px; font-weight: 300; letter-spacing: 2px; }
-
-        /* 输入框通用样式 */
-        input[type="password"], input[type="text"], input[type="number"], textarea, select {
-            width: 100%;
-            padding: 12px 15px;
-            background: var(--input-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1rem;
-            font-family: inherit;
+        
+        input, textarea, select {
+            width: 100%; padding: 12px 15px; background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+            color: #fff; font-size: 1rem; margin-bottom: 10px;
         }
-        input:focus, textarea:focus, select:focus {
-            outline: none; border-color: var(--accent-color);
-            background: rgba(0,0,0,0.4); box-shadow: 0 0 10px rgba(62, 175, 124, 0.2);
-        }
-        /* 去除数字输入框箭头 */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input:focus, select:focus { outline: none; border-color: var(--accent-color); background: rgba(0,0,0,0.4); }
 
-        /* 按钮样式 */
         .btn {
-            padding: 12px 24px; border: none; border-radius: 8px;
-            cursor: pointer; font-weight: bold; font-size: 0.95rem;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px 20px; border: none; border-radius: 8px;
+            cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn-primary { background: var(--accent-color); color: white; }
         .btn-danger { background: var(--danger-color); color: white; }
-        .btn-secondary { background: rgba(255,255,255,0.1); color: white; }
-        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn:active { transform: translateY(0); }
-
-        /* ================= 后台布局 ================= */
-        #dashboard-container { display: none; width: 100%; height: 100%; display: flex; }
-
-        .sidebar {
-            width: 260px; height: 100%; padding: 30px 20px;
-            display: flex; flex-direction: column; gap: 15px; z-index: 10;
-        }
-        .nav-item {
-            padding: 15px 20px; cursor: pointer; border-radius: 12px;
-            color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 15px;
-        }
-        .nav-item:hover, .nav-item.active {
-            background: var(--accent-color); color: #fff;
-            box-shadow: 0 5px 15px rgba(62, 175, 124, 0.3);
-        }
-
-        .main-content { flex: 1; position: relative; padding: 30px; overflow-y: auto; }
-        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .page-title { font-size: 2rem; font-weight: bold; }
         
+        /* 布局 */
+        #dashboard-container { display: none; width: 100%; height: 100%; display: flex; }
+        .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
+        .nav-item { padding: 15px; cursor: pointer; border-radius: 12px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 15px; }
+        .nav-item.active { background: var(--accent-color); color: #fff; }
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
         .content-section { display: none; animation: fadeIn 0.4s ease; }
         .content-section.active { display: block; }
 
-        /* ================= 表单区域 ================= */
-        .form-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1000px;
-        }
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        /* 表单样式 */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; }
         .form-group.full { grid-column: span 2; }
-        label { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-left: 2px; }
+        label { display: block; margin-bottom: 5px; color: rgba(255,255,255,0.6); font-size: 0.9rem; }
 
         /* 等级按钮 */
-        .level-selector { display: flex; gap: 8px; }
+        .level-selector { display: flex; gap: 8px; flex-wrap: wrap; }
         .level-btn {
-            width: 38px; height: 38px; border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.3); color: #fff;
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
         }
-        .level-btn.active { background: #e6a23c; border-color: #e6a23c; color: #000; font-weight: bold; }
+        .level-btn.active { background: #e6a23c; color: #000; font-weight: bold; border-color: #e6a23c; }
 
-        /* 品质选择 */
-        .quality-selector { display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap; }
-        .q-btn { padding: 6px 16px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; border: 2px solid transparent; opacity: 0.7; }
+        /* 颜色按钮 */
+        .quality-selector { display: flex; gap: 10px; flex-wrap: wrap; }
+        .q-btn { padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; border: 2px solid transparent; opacity: 0.7; }
         .q-btn.active { opacity: 1; border-color: #fff; transform: scale(1.05); }
 
-        /* 标签选择区域 (冲突 & 适用) */
+        /* 标签云 (Tag Cloud) */
         .tags-wrapper {
             background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px;
             margin-top: 5px; border: 1px solid rgba(255,255,255,0.05);
         }
-        .tags-search-mini {
-            width: 100%; padding: 8px; margin-bottom: 10px; font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-            background: transparent !important; border: none; border-radius: 0;
-        }
-        .tags-container {
-            display: flex; flex-wrap: wrap; gap: 6px; 
-            max-height: 120px; overflow-y: auto; /* 滚动 */
-        }
+        .tags-container { display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow-y: auto; }
         .tag-choice {
-            padding: 4px 10px; background: rgba(255,255,255,0.1);
-            border-radius: 4px; font-size: 0.8rem; cursor: pointer; user-select: none;
+            padding: 4px 12px; background: rgba(255,255,255,0.1);
+            border-radius: 20px; font-size: 0.8rem; cursor: pointer; user-select: none;
         }
         .tag-choice:hover { background: var(--accent-color); }
-        .tag-choice i { margin-right: 4px; opacity: 0.7; }
+        .tag-choice.selected { background: var(--accent-color); color: white; box-shadow: 0 0 10px rgba(62,175,124,0.4); }
 
-        /* ================= 卡片与筛选 ================= */
-        .filter-bar {
-            display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;
-            padding: 15px; align-items: center;
-        }
-        .filter-select {
-            width: auto; min-width: 120px; padding: 8px 12px;
-            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
-        }
+        /* 总览筛选栏 */
+        .filter-panel { padding: 20px; margin-bottom: 20px; }
+        .filter-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
+        .filter-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); width: 70px; }
         
-        .card-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;
+        .filter-btn-group { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+        .filter-btn {
+            padding: 6px 14px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px; color: rgba(255,255,255,0.7); cursor: pointer; font-size: 0.85rem;
         }
+        .filter-btn:hover { background: rgba(255,255,255,0.1); }
+        .filter-btn.active { background: var(--accent-color); color: white; border-color: var(--accent-color); }
+
+        /* 卡片 */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .book-card {
             background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px; padding: 20px; position: relative; overflow: hidden;
         }
-        .book-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); }
         .book-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
-        
-        /* 颜色定义 */
         .card-白::before { background: #909399; }
         .card-绿::before { background: #67c23a; }
         .card-蓝::before { background: #409eff; }
@@ -178,32 +129,22 @@
         .card-金::before { background: #e6a23c; }
         .card-红::before { background: #f56c6c; }
 
-        .card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
-        .card-name { font-size: 1.2rem; font-weight: bold; margin: 0; color: #fff; }
-        .card-level { font-size: 0.8rem; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px; }
-        .card-info { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin: 5px 0; display:flex; gap:10px; align-items:center; }
-        .card-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 10px; height: 2.6em; overflow: hidden; }
-
-        /* Toast 提示 */
         .toast {
-            position: fixed; bottom: 30px; right: 30px;
-            padding: 15px 30px; border-radius: 8px; color: #fff; z-index: 2000;
-            transform: translateY(100px); opacity: 0;
+            position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; border-radius: 8px; 
+            color: #fff; transform: translateY(100px); opacity: 0; transition: 0.3s;
         }
         .toast.active { transform: translateY(0); opacity: 1; }
-        .toast.success { background: #67c23a; box-shadow: 0 5px 20px rgba(103, 194, 58, 0.4); }
-        .toast.error { background: #f56c6c; box-shadow: 0 5px 20px rgba(245, 108, 108, 0.4); }
+        .toast.success { background: #67c23a; } .toast.error { background: #f56c6c; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <!-- 1. 登录层 -->
+    <!-- 登录层 -->
     <div id="login-container">
         <div class="glass-panel login-box">
-            <div class="login-title"><i class="fa-solid fa-lock"></i> 管理员登录</div>
-            <!-- 需求1: 修改文案为 请输入密钥 -->
+            <h2 style="margin-bottom:30px; font-weight:300"><i class="fa-solid fa-shield-halved"></i> 管理员验证</h2>
             <input type="password" id="ghToken" placeholder="请输入密钥 (SLXZ3238)">
             
             <div style="display:none">
@@ -213,41 +154,40 @@
             </div>
 
             <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="attemptLogin()">
-                <i class="fa-solid fa-key"></i> 验证并连接
+                <i class="fa-solid fa-key"></i> 验证并进入
             </button>
             <p id="loginMsg" style="font-size:0.8rem; color:rgba(255,255,255,0.5); margin-top:15px"></p>
         </div>
     </div>
 
-    <!-- 2. 后台主层 -->
-    <div id="dashboard-container" style="display: none;">
-        
+    <!-- 后台主层 -->
+    <div id="dashboard-container">
         <!-- 左侧导航 -->
         <div class="sidebar glass-panel" style="border-radius: 0 16px 16px 0; border-left: none;">
-            <div style="text-align:center; margin-bottom:40px; font-size:1.4rem; font-weight:bold; color:var(--accent-color)">
-                <i class="fa-solid fa-book-open"></i> 附魔书后台
+            <div style="text-align:center; margin-bottom:40px; font-size:1.4rem; color:var(--accent-color)">
+                <i class="fa-solid fa-book-journal-whills"></i> 管理后台
             </div>
             <div class="nav-item active" onclick="switchTab('add')">
-                <i class="fa-solid fa-plus-circle"></i> 增加附魔书
+                <i class="fa-solid fa-plus"></i> 增加附魔书
             </div>
             <div class="nav-item" onclick="switchTab('delete')">
-                <i class="fa-solid fa-trash-can"></i> 删除附魔书
+                <i class="fa-solid fa-trash"></i> 删除附魔书
             </div>
             <div class="nav-item" onclick="switchTab('list')">
-                <i class="fa-solid fa-layer-group"></i> 附魔书总览
+                <i class="fa-solid fa-list-ul"></i> 附魔书总览
             </div>
         </div>
 
         <!-- 右侧内容 -->
         <div class="main-content">
-            <div class="header-bar">
-                <div class="page-title" id="pageTitle">增加附魔书</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+                <h1 id="pageTitle" style="margin:0; font-size:1.8rem">增加附魔书</h1>
                 <button class="btn btn-primary" onclick="pushToGitHub()">
-                    <i class="fa-solid fa-cloud-upload"></i> 发布更新到 GitHub
+                    <i class="fa-solid fa-cloud-arrow-up"></i> 发布更新到 GitHub
                 </button>
             </div>
 
-            <!-- 功能 1: 增加 -->
+            <!-- 功能1: 增加 -->
             <div id="view-add" class="content-section active">
                 <div class="glass-panel" style="padding: 30px;">
                     <div class="form-grid">
@@ -255,21 +195,21 @@
                             <label>附魔书名称</label>
                             <input type="text" id="inputName" placeholder="例如: 锋利">
                         </div>
-                        
-                        <!-- 需求2: 价格输入框样式与名称一致 -->
                         <div class="form-group">
                             <label>价格 (金币)</label>
                             <input type="number" id="inputPrice" placeholder="例如: 64">
                         </div>
                         
                         <div class="form-group full">
-                            <label>等级选择</label>
-                            <div class="level-selector" id="levelContainer"></div> <!-- JS生成 -->
+                            <label>等级 (选 "无" 表示无等级)</label>
+                            <div class="level-selector" id="addLevelContainer">
+                                <!-- JS 生成 1-7 及 无等级 -->
+                            </div>
                             <input type="hidden" id="inputLevel" value="一级">
                         </div>
 
                         <div class="form-group full">
-                            <label>品质 (决定卡片颜色)</label>
+                            <label>品质</label>
                             <div class="quality-selector">
                                 <div class="q-btn" style="background:#909399" onclick="selectColor('白', this)">白 (普通)</div>
                                 <div class="q-btn" style="background:#67c23a" onclick="selectColor('绿', this)">绿 (优秀)</div>
@@ -281,155 +221,140 @@
                             <input type="hidden" id="inputColor" value="白">
                         </div>
 
-                        <!-- 需求3: 冲突附魔 (含搜索和全列表) -->
                         <div class="form-group full">
-                            <label>冲突附魔 (手动输入或点击添加)</label>
-                            <input type="text" id="inputConflicts" placeholder="手动输入，用逗号分隔">
+                            <label>冲突附魔 (来源于 data.json 中已有的附魔书)</label>
+                            <input type="text" id="inputConflicts" placeholder="点击下方标签添加，或手动输入">
                             <div class="tags-wrapper">
-                                <input type="text" class="tags-search-mini" placeholder="🔍 搜索冲突附魔..." oninput="filterTags(this, 'conflictTagsContainer')">
+                                <input type="text" style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); padding:5px; margin-bottom:10px; width:100%" placeholder="🔍 搜索现有附魔..." oninput="filterTags(this, 'conflictTagsContainer')">
                                 <div class="tags-container" id="conflictTagsContainer">
-                                    <!-- JS 填充全量附魔 -->
+                                    <!-- JS 动态填充 -->
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 需求4: 适用物品 (按钮在输入框下方，含所有工具) -->
                         <div class="form-group full">
-                            <label>适用物品 (手动输入或点击添加)</label>
-                            <input type="text" id="inputTarget" placeholder="例如: 剑, 斧">
+                            <label>适用物品</label>
+                            <input type="text" id="inputTarget" placeholder="点击下方标签添加">
                             <div class="tags-wrapper">
                                 <div class="tags-container" id="targetTagsContainer">
-                                    <!-- JS 填充全量工具 -->
+                                    <!-- JS 填充预设工具 -->
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group full">
-                            <label>描述信息</label>
-                            <textarea id="inputDesc" rows="3" placeholder="描述附魔书的效果..."></textarea>
+                            <label>描述</label>
+                            <textarea id="inputDesc" rows="3"></textarea>
                         </div>
 
-                        <div class="form-group full" style="margin-top:10px">
-                            <button class="btn btn-primary" style="width:100%" onclick="saveItem()">
-                                <i class="fa-solid fa-save"></i> 保存到暂存区
-                            </button>
+                        <div class="form-group full">
+                            <button class="btn btn-primary" style="width:100%" onclick="saveItem()">保存</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 功能 2: 删除 -->
+            <!-- 功能2: 删除 -->
             <div id="view-delete" class="content-section">
-                <div class="glass-panel filter-bar">
-                    <i class="fa-solid fa-search" style="opacity:0.6"></i>
-                    <input type="text" id="searchDelete" placeholder="搜索名称..." oninput="renderCards('delete')" 
-                           style="border:none; background:transparent; padding:0; width:300px;">
+                <div class="glass-panel" style="padding:15px; margin-bottom:20px; display:flex; gap:10px">
+                    <i class="fa-solid fa-search" style="padding:12px; color:rgba(255,255,255,0.5)"></i>
+                    <input type="text" id="searchDelete" placeholder="输入名称搜索要删除的附魔书..." oninput="renderCards('delete')" style="border:none; background:transparent; margin:0">
                 </div>
                 <div id="deleteCardGrid" class="card-grid"></div>
             </div>
 
-            <!-- 功能 3: 总览 (需求5: 增加筛选功能) -->
+            <!-- 功能3: 总览 -->
             <div id="view-list" class="content-section">
-                <div class="glass-panel filter-bar">
-                    <div style="display:flex; align-items:center; gap:10px; flex:1">
-                        <i class="fa-solid fa-filter" style="color:var(--accent-color)"></i>
-                        <input type="text" id="searchList" placeholder="搜索附魔书名称..." oninput="renderCards('list')"
-                               style="background:transparent; border:none; padding:5px; width:200px;">
+                <div class="glass-panel filter-panel">
+                    <!-- 搜索行 -->
+                    <div class="filter-row">
+                        <div class="filter-label">关键字</div>
+                        <input type="text" id="searchList" placeholder="搜索名称..." oninput="renderCards('list')" 
+                               style="background:rgba(0,0,0,0.3); border:none; width:300px; margin:0">
                     </div>
-                    
-                    <!-- 筛选下拉框 -->
-                    <select id="filterLevel" class="filter-select" onchange="renderCards('list')">
-                        <option value="all">所有等级</option>
-                        <option value="一级">一级</option><option value="二级">二级</option>
-                        <option value="三级">三级</option><option value="四级">四级</option>
-                        <option value="五级">五级</option><option value="六级">六级</option>
-                        <option value="七级">七级</option>
-                    </select>
 
-                    <select id="filterQuality" class="filter-select" onchange="renderCards('list')">
-                        <option value="all">所有品质</option>
-                        <option value="白">白 (普通)</option><option value="绿">绿 (优秀)</option>
-                        <option value="蓝">蓝 (稀有)</option><option value="紫">紫 (史诗)</option>
-                        <option value="金">金 (传说)</option><option value="红">红 (神话)</option>
-                    </select>
+                    <!-- 等级筛选 (包含无等级) -->
+                    <div class="filter-row">
+                        <div class="filter-label">等级</div>
+                        <div class="filter-btn-group" id="filterLevelGroup">
+                            <div class="filter-btn active" onclick="setFilter('level', 'all', this)">全部</div>
+                            <div class="filter-btn" onclick="setFilter('level', '无等级', this)">无等级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '一级', this)">一级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '二级', this)">二级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '三级', this)">三级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '四级', this)">四级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '五级', this)">五级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '六级', this)">六级</div>
+                            <div class="filter-btn" onclick="setFilter('level', '七级', this)">七级</div>
+                        </div>
+                    </div>
 
-                    <select id="filterTarget" class="filter-select" onchange="renderCards('list')">
-                        <option value="all">所有适用</option>
-                        <option value="剑">剑</option><option value="盔甲">盔甲</option>
-                        <option value="工具">工具</option><option value="弓">弓</option>
-                    </select>
+                    <!-- 品质筛选 -->
+                    <div class="filter-row">
+                        <div class="filter-label">品质</div>
+                        <div class="filter-btn-group" id="filterQualityGroup">
+                            <div class="filter-btn active" onclick="setFilter('quality', 'all', this)">全部</div>
+                            <div class="filter-btn" style="border-bottom:2px solid #909399" onclick="setFilter('quality', '白', this)">白</div>
+                            <div class="filter-btn" style="border-bottom:2px solid #67c23a" onclick="setFilter('quality', '绿', this)">绿</div>
+                            <div class="filter-btn" style="border-bottom:2px solid #409eff" onclick="setFilter('quality', '蓝', this)">蓝</div>
+                            <div class="filter-btn" style="border-bottom:2px solid #a355d6" onclick="setFilter('quality', '紫', this)">紫</div>
+                            <div class="filter-btn" style="border-bottom:2px solid #e6a23c" onclick="setFilter('quality', '金', this)">金</div>
+                            <div class="filter-btn" style="border-bottom:2px solid #f56c6c" onclick="setFilter('quality', '红', this)">红</div>
+                        </div>
+                    </div>
+
+                    <!-- 适用工具筛选 (按钮模式，动态生成) -->
+                    <div class="filter-row">
+                        <div class="filter-label">适用</div>
+                        <div class="filter-btn-group" id="filterTargetGroup">
+                            <!-- JS 将从 data.json 中提取工具类型并生成按钮 -->
+                            <div class="filter-btn active" onclick="setFilter('target', 'all', this)">全部</div>
+                        </div>
+                    </div>
                 </div>
+
                 <div id="listCardGrid" class="card-grid"></div>
             </div>
-
         </div>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script>
-        // ================== 全局配置 ==================
         const SHORT_CODE = "SLXZ3238"; 
-        const PART_1 = ""; // 在此填入 Token 前半部分
-        const PART_2 = ""; // 在此填入 Token 后半部分
+        const PART_1 = ""; // 填入 Token 前半段
+        const PART_2 = ""; // 填入 Token 后半段
         const REAL_TOKEN = PART_1 + PART_2;
 
         let items = [];
         let sha = ''; 
 
-        // 全量附魔列表 (用于冲突搜索)
-        const ALL_ENCHANTS = [
-            "保护", "火焰保护", "摔落保护", "爆炸保护", "弹射物保护", "水下呼吸", "深海探索者", "荆棘", "冰霜行者", "绑定诅咒", "灵魂疾行",
-            "锋利", "亡灵杀手", "节肢杀手", "击退", "火焰附加", "抢夺", "横扫之刃",
-            "效率", "精准采集", "耐久", "时运", "经验修补", "消失诅咒",
-            "力量", "冲击", "火矢", "无限",
-            "海之眷顾", "钓饵",
-            "忠诚", "穿刺", "激流", "引雷",
-            "多重射击", "穿透", "快速装填",
-            "经验修补", "耐久", "迅捷潜行"
+        // 筛选状态
+        let currentFilters = {
+            level: 'all',
+            quality: 'all',
+            target: 'all'
+        };
+
+        // 预设工具列表 (用于 Add 界面辅助输入)
+        const PRESET_TOOLS = [
+            "剑", "斧", "镐", "锹", "锄", "弓", "弩", "三叉戟", 
+            "头盔", "胸甲", "护腿", "靴子", "盾牌", "鞘翅", "钓鱼竿", "工具", "盔甲", "全物品"
         ];
 
-        // 全量工具/装备列表
-        const ALL_TARGETS = [
-            {icon:"fa-khanda", name:"剑"},
-            {icon:"fa-hammer", name:"斧"},
-            {icon:"fa-pickaxe", name:"镐"},
-            {icon:"fa-trowel", name:"锹"},
-            {icon:"fa-person-digging", name:"锄"},
-            {icon:"fa-bow-arrow", name:"弓"},
-            {icon:"fa-crosshairs", name:"弩"},
-            {icon:"fa-lines-leaning", name:"三叉戟"},
-            {icon:"fa-helmet-safety", name:"头盔"},
-            {icon:"fa-shirt", name:"胸甲"},
-            {icon:"fa-socks", name:"护腿"},
-            {icon:"fa-shoe-prints", name:"靴子"},
-            {icon:"fa-shield", name:"盾牌"},
-            {icon:"fa-paper-plane", name:"鞘翅"},
-            {icon:"fa-fish", name:"钓鱼竿"},
-            {icon:"fa-star", name:"全物品"},
-            {icon:"fa-wrench", name:"工具"},
-            {icon:"fa-user-shield", name:"盔甲"}
-        ];
-
-        // ================== 初始化 ==================
         window.onload = () => {
-            initLevelButtons();
-            initConflictTags();
-            initTargetTags();
-
+            initAddLevelButtons();
+            initAddTargetTags();
             const savedPass = localStorage.getItem('admin_pass');
             if (savedPass) {
                 document.getElementById('ghToken').value = savedPass;
-                attemptLogin(); 
+                attemptLogin();
             }
         };
 
         function getAuthToken() {
-            const input = document.getElementById('ghToken').value;
-            if (input === SHORT_CODE) {
-                return REAL_TOKEN || "";
-            }
-            return input;
+            const val = document.getElementById('ghToken').value;
+            return val === SHORT_CODE ? REAL_TOKEN : val;
         }
 
         async function attemptLogin() {
@@ -441,53 +366,100 @@
             const path = document.getElementById('ghPath').value;
             const msgSpan = document.getElementById('loginMsg');
 
-            msgSpan.innerText = "正在连接服务器...";
+            msgSpan.innerText = "正在连接...";
             
             try {
                 const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-                const res = await fetch(url, {
-                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-                });
+                const res = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
                 
                 if (!res.ok) {
-                    if (res.status === 401) throw new Error("密钥错误或已过期");
-                    throw new Error("连接失败: " + res.status);
+                    if (res.status === 401) throw new Error("密钥错误");
+                    throw new Error("连接失败 " + res.status);
                 }
 
                 const data = await res.json();
                 sha = data.sha;
-                const content = decodeURIComponent(escape(window.atob(data.content)));
-                items = JSON.parse(content);
+                items = JSON.parse(decodeURIComponent(escape(window.atob(data.content))));
 
                 localStorage.setItem('admin_pass', document.getElementById('ghToken').value);
                 document.getElementById('login-container').style.display = 'none';
                 document.getElementById('dashboard-container').style.display = 'flex';
                 
+                // 初始化动态数据
+                updateConflictTagsFromData(); // 需求1: 冲突来源于data.json
+                updateTargetFilterButtons();  // 需求2: 适用筛选按钮动态生成
+
                 switchTab('add');
-                showToast(`数据同步成功 (${items.length}条)`, "success");
+                showToast("连接成功", "success");
 
             } catch (e) {
-                msgSpan.innerText = "❌ " + e.message;
+                msgSpan.innerText = e.message;
                 if(e.message.includes('404')) {
                     items = [];
                     document.getElementById('login-container').style.display = 'none';
                     document.getElementById('dashboard-container').style.display = 'flex';
-                    showToast("初始化新数据库", "success");
+                    showToast("初始化新仓库", "success");
                 }
             }
         }
 
-        // ================== 页面渲染逻辑 ==================
+        // ================= 数据初始化逻辑 =================
 
-        function initLevelButtons() {
-            const levels = ["一级", "二级", "三级", "四级", "五级", "六级", "七级"];
-            const container = document.getElementById('levelContainer');
+        // 需求1: 从 data.json 提取已有附魔名称作为冲突候选项
+        function updateConflictTagsFromData() {
+            const container = document.getElementById('conflictTagsContainer');
+            container.innerHTML = '';
+            
+            // 提取去重
+            const uniqueNames = [...new Set(items.map(i => i.name_zh))];
+            
+            if(uniqueNames.length === 0) {
+                container.innerHTML = '<span style="font-size:0.8rem; color:rgba(255,255,255,0.4)">暂无数据，请先添加附魔书</span>';
+                return;
+            }
+
+            uniqueNames.sort().forEach(name => {
+                const tag = document.createElement('div');
+                tag.className = 'tag-choice';
+                tag.innerText = name;
+                tag.onclick = () => addText('inputConflicts', name);
+                container.appendChild(tag);
+            });
+        }
+
+        // 需求2: 从 data.json 提取适用工具生成筛选按钮
+        function updateTargetFilterButtons() {
+            const container = document.getElementById('filterTargetGroup');
+            // 保留第一个 "全部" 按钮
+            container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'target\', \'all\', this)">全部</div>';
+            
+            // 提取所有 target_zh，拆分逗号，去重
+            let allTargets = [];
+            items.forEach(item => {
+                const targets = item.target_zh.split(/[,，]/).map(t => t.trim());
+                allTargets = allTargets.concat(targets);
+            });
+            const uniqueTargets = [...new Set(allTargets)].filter(t => t); // 去空
+
+            uniqueTargets.forEach(target => {
+                const btn = document.createElement('div');
+                btn.className = 'filter-btn';
+                btn.innerText = target;
+                btn.onclick = function() { setFilter('target', target, this); };
+                container.appendChild(btn);
+            });
+        }
+
+        // Add 界面的辅助初始化
+        function initAddLevelButtons() {
+            const container = document.getElementById('addLevelContainer');
+            const levels = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级"];
             levels.forEach((lvl, idx) => {
                 const btn = document.createElement('div');
-                btn.className = 'level-btn' + (idx === 0 ? ' active' : '');
-                btn.innerText = idx + 1;
+                btn.className = 'level-btn' + (idx === 1 ? ' active' : ''); // 默认选中一级
+                btn.innerText = lvl === "无等级" ? "无" : (idx);
                 btn.onclick = () => {
-                    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('#addLevelContainer .level-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     document.getElementById('inputLevel').value = lvl;
                 };
@@ -495,38 +467,49 @@
             });
         }
 
-        // 初始化冲突附魔标签
-        function initConflictTags() {
-            const container = document.getElementById('conflictTagsContainer');
-            container.innerHTML = '';
-            ALL_ENCHANTS.forEach(ench => {
-                const tag = document.createElement('div');
-                tag.className = 'tag-choice';
-                tag.innerText = ench;
-                tag.onclick = () => addText('inputConflicts', ench);
-                container.appendChild(tag);
-            });
-        }
-
-        // 初始化适用物品标签
-        function initTargetTags() {
+        function initAddTargetTags() {
             const container = document.getElementById('targetTagsContainer');
-            container.innerHTML = '';
-            ALL_TARGETS.forEach(t => {
+            PRESET_TOOLS.forEach(tool => {
                 const tag = document.createElement('div');
                 tag.className = 'tag-choice';
-                tag.innerHTML = `<i class="fa-solid ${t.icon}"></i> ${t.name}`;
-                tag.onclick = () => addText('inputTarget', t.name);
+                tag.innerText = tool;
+                tag.onclick = () => addText('inputTarget', tool);
                 container.appendChild(tag);
             });
         }
 
-        // 标签筛选器
+        // ================= 交互逻辑 =================
+
+        function switchTab(tab) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + tab).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            // 简单高亮对应菜单
+            const navs = document.querySelectorAll('.nav-item');
+            if(tab==='add') navs[0].classList.add('active');
+            if(tab==='delete') navs[1].classList.add('active');
+            if(tab==='list') navs[2].classList.add('active');
+
+            if(tab === 'list') {
+                updateTargetFilterButtons(); // 每次进入总览刷新一次筛选器，防止新增后未更新
+                renderCards('list');
+            }
+            if(tab === 'delete') renderCards('delete');
+        }
+
+        function addText(id, text) {
+            const input = document.getElementById(id);
+            let val = input.value;
+            if(val && !val.trim().endsWith(',')) val += ', ';
+            input.value = val + text;
+        }
+
         function filterTags(input, containerId) {
-            const val = input.value.toLowerCase();
+            const filter = input.value.toLowerCase();
             const tags = document.getElementById(containerId).getElementsByClassName('tag-choice');
             Array.from(tags).forEach(tag => {
-                tag.style.display = tag.innerText.toLowerCase().includes(val) ? 'block' : 'none';
+                tag.style.display = tag.innerText.toLowerCase().includes(filter) ? 'block' : 'none';
             });
         }
 
@@ -536,158 +519,139 @@
             el.classList.add('active');
         }
 
-        function addText(inputId, text) {
-            const input = document.getElementById(inputId);
-            let val = input.value.trim();
-            if(val && !val.endsWith(',')) val += ', ';
-            input.value = val + text;
+        // ================= 筛选与渲染 =================
+
+        function setFilter(type, value, btnElement) {
+            currentFilters[type] = value;
+            
+            // 更新按钮样式
+            const group = btnElement.parentElement;
+            group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            
+            renderCards('list');
         }
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            // 简单的查找并激活对应的 nav item
-            const items = document.querySelectorAll('.nav-item');
-            if(tabName === 'add') items[0].classList.add('active');
-            if(tabName === 'delete') items[1].classList.add('active');
-            if(tabName === 'list') items[2].classList.add('active');
+        function renderCards(mode) {
+            const container = document.getElementById(mode === 'delete' ? 'deleteCardGrid' : 'listCardGrid');
+            container.innerHTML = '';
 
-            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
-            document.getElementById(`view-${tabName}`).classList.add('active');
+            const searchText = document.getElementById(mode === 'delete' ? 'searchDelete' : 'searchList').value.toLowerCase();
 
-            if(tabName === 'add') document.getElementById('pageTitle').innerText = '增加附魔书';
-            else if(tabName === 'delete') {
-                document.getElementById('pageTitle').innerText = '删除附魔书';
-                renderCards('delete');
-            } else {
-                document.getElementById('pageTitle').innerText = '附魔书总览';
-                renderCards('list');
-            }
+            items.forEach((item, index) => {
+                // 基础文本搜索
+                if(searchText && !item.name_zh.toLowerCase().includes(searchText)) return;
+
+                // 总览筛选逻辑
+                if(mode === 'list') {
+                    // 等级筛选: 支持 "all", "无等级", "一级"...
+                    if(currentFilters.level !== 'all' && item.level_zh !== currentFilters.level) return;
+                    
+                    // 品质筛选
+                    if(currentFilters.quality !== 'all' && item.color !== currentFilters.quality) return;
+                    
+                    // 适用筛选: 只要 target 字符串包含选中的标签即可 (例如 "剑, 斧" 包含 "剑")
+                    if(currentFilters.target !== 'all' && !item.target_zh.includes(currentFilters.target)) return;
+                }
+
+                const card = document.createElement('div');
+                card.className = `book-card card-${item.color}`;
+                
+                let btnHtml = '';
+                if(mode === 'delete') {
+                    btnHtml = `<button class="btn btn-danger" style="padding:5px 10px; font-size:0.8rem" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>`;
+                }
+
+                // 处理显示 "无等级"
+                const levelDisplay = item.level_zh === '无等级' ? '无等级' : item.level_zh;
+
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px">
+                        <strong style="font-size:1.1rem">${item.name_zh}</strong>
+                        ${btnHtml}
+                    </div>
+                    <div style="font-size:0.9rem; margin-bottom:8px; display:flex; gap:10px; color:rgba(255,255,255,0.8)">
+                        <span style="background:rgba(255,255,255,0.15); padding:2px 8px; border-radius:4px">${levelDisplay}</span>
+                        <span style="color:#e6a23c">🪙 ${item.price}</span>
+                    </div>
+                    <div style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:5px">
+                        <i class="fa-solid fa-wrench"></i> ${item.target_zh}
+                    </div>
+                    <div style="font-size:0.85rem; opacity:0.6; height:2.4em; overflow:hidden">${item.desc_zh}</div>
+                `;
+                container.appendChild(card);
+            });
+            
+            if(container.innerHTML === '') container.innerHTML = '<div style="color:gray; padding:20px">没有找到匹配的附魔书</div>';
         }
 
-        // 保存逻辑
+        // ================= CRUD 操作 =================
+
         function saveItem() {
             const name = document.getElementById('inputName').value;
-            if(!name) return showToast('请填写附魔书名称', 'error');
+            if(!name) return showToast("名称必填", "error");
 
             const newItem = {
                 id: name,
                 name_zh: name,
                 level_zh: document.getElementById('inputLevel').value,
                 price: document.getElementById('inputPrice').value || 0,
-                desc_zh: document.getElementById('inputDesc').value || '无描述',
+                desc_zh: document.getElementById('inputDesc').value || '无',
                 color: document.getElementById('inputColor').value,
                 target_zh: document.getElementById('inputTarget').value || '通用',
                 conflicts_zh: document.getElementById('inputConflicts').value || '无冲突'
             };
 
             items.push(newItem);
-            showToast('已添加到本地暂存区，请发布', 'success');
+            showToast("已保存 (需发布)", "success");
             
-            // 重置表单
+            // 实时更新冲突列表和筛选器
+            updateConflictTagsFromData();
+            updateTargetFilterButtons();
+            
+            // 清空部分输入
             document.getElementById('inputName').value = '';
             document.getElementById('inputDesc').value = '';
-            document.getElementById('inputConflicts').value = '';
-            document.getElementById('inputTarget').value = '';
-        }
-
-        // 渲染卡片 (核心筛选逻辑)
-        function renderCards(mode) {
-            const gridId = mode === 'delete' ? 'deleteCardGrid' : 'listCardGrid';
-            const container = document.getElementById(gridId);
-            container.innerHTML = '';
-
-            // 获取筛选条件
-            const searchText = mode === 'delete' 
-                ? document.getElementById('searchDelete').value.toLowerCase()
-                : document.getElementById('searchList').value.toLowerCase();
-            
-            const fLevel = mode === 'list' ? document.getElementById('filterLevel').value : 'all';
-            const fQuality = mode === 'list' ? document.getElementById('filterQuality').value : 'all';
-            const fTarget = mode === 'list' ? document.getElementById('filterTarget').value : 'all';
-
-            items.forEach((item, index) => {
-                // 1. 文本搜索
-                if(searchText && !item.name_zh.toLowerCase().includes(searchText)) return;
-                
-                // 2. 总览页面的高级筛选
-                if(mode === 'list') {
-                    if(fLevel !== 'all' && item.level_zh !== fLevel) return;
-                    if(fQuality !== 'all' && item.color !== fQuality) return;
-                    if(fTarget !== 'all' && !item.target_zh.includes(fTarget)) return;
-                }
-
-                const card = document.createElement('div');
-                card.className = `book-card card-${item.color}`;
-                
-                let actionBtn = '';
-                if(mode === 'delete') {
-                    actionBtn = `<button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>`;
-                }
-
-                card.innerHTML = `
-                    <div class="card-header">
-                        <h3 class="card-name">${item.name_zh}</h3>
-                        ${actionBtn}
-                    </div>
-                    <div class="card-info">
-                        <span class="card-level">${item.level_zh}</span>
-                        <span style="color:#e6a23c; font-weight:bold">🪙 ${item.price}</span>
-                    </div>
-                    <div class="card-info" style="font-size:0.8rem">
-                        <i class="fa-solid fa-crosshairs"></i> ${item.target_zh}
-                    </div>
-                    <div class="card-desc">${item.desc_zh}</div>
-                `;
-                container.appendChild(card);
-            });
-
-            if(container.innerHTML === '') {
-                container.innerHTML = '<div style="color:rgba(255,255,255,0.4); grid-column:span 3; text-align:center">暂无符合条件的附魔书</div>';
-            }
         }
 
         function deleteItem(index) {
-            if(confirm('确认删除？')) {
+            if(confirm("确定删除？")) {
                 items.splice(index, 1);
                 renderCards('delete');
-                showToast('已删除', 'success');
+                updateConflictTagsFromData(); // 删除后也更新列表
+                showToast("已删除", "success");
             }
         }
 
-        // GitHub 上传
         async function pushToGitHub() {
             const token = getAuthToken();
-            if (!token) return;
-            
+            if(!token) return;
+
             const owner = document.getElementById('ghOwner').value;
             const repo = document.getElementById('ghRepo').value;
             const path = document.getElementById('ghPath').value;
-            const contentBase64 = window.btoa(unescape(encodeURIComponent(JSON.stringify(items, null, 4))));
-
+            
             try {
-                showToast('正在上传...', 'success');
+                showToast("正在上传...", "success");
+                const content = window.btoa(unescape(encodeURIComponent(JSON.stringify(items, null, 4))));
                 const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: "Update via Admin Panel",
-                        content: contentBase64,
-                        sha: sha
-                    })
+                    body: JSON.stringify({ message: "Update via Admin", content: content, sha: sha })
                 });
-
-                if (!res.ok) throw new Error(await res.text());
+                
+                if(!res.ok) throw new Error(await res.text());
                 const data = await res.json();
                 sha = data.content.sha;
-                showToast('✅ 发布成功！', 'success');
-            } catch (e) {
-                showToast('发布失败: ' + e.message, 'error');
+                showToast("✅ 发布成功", "success");
+            } catch(e) {
+                showToast("发布失败: " + e.message, "error");
             }
         }
 
         function showToast(msg, type) {
             const t = document.getElementById('toast');
-            t.innerHTML = msg;
+            t.innerText = msg;
             t.className = `toast ${type} active`;
             setTimeout(() => t.classList.remove('active'), 3000);
         }
