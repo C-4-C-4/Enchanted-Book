@@ -389,7 +389,88 @@
         .cart-header { position: relative; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
         .cart-close-btn { border: none; background: none; cursor: pointer; font-size: 1.5rem; color: var(--c-text); }
         .cart-items { flex: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--c-bg); border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--c-border); }
+        
+        /* 购物车项目样式 (包含数量控制) */
+        .cart-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem; 
+            background: var(--c-bg); 
+            border-radius: 12px; 
+            margin-bottom: 10px; 
+            border: 1px solid var(--c-border); 
+            flex-wrap: wrap; /* 允许小屏幕换行 */
+            gap: 10px; 
+        }
+        .cart-item-info {
+            flex: 1;
+            min-width: 120px;
+        }
+        .cart-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qty-group {
+            display: flex;
+            align-items: center;
+            background: var(--c-bg-soft);
+            border: 1px solid var(--c-border);
+            border-radius: 8px;
+            padding: 2px;
+        }
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: transparent;
+            color: var(--c-text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            border-radius: 6px;
+        }
+        .qty-btn:hover {
+            background: var(--c-border);
+        }
+        .qty-input {
+            width: 36px;
+            height: 28px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            color: var(--c-text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            outline: none;
+            padding: 0;
+            -moz-appearance: textfield;
+        }
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .cart-del-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-text-light);
+            cursor: pointer;
+            transition: color 0.2s;
+            border-radius: 50%;
+        }
+        .cart-del-btn:hover {
+            color: var(--q-red);
+            background: rgba(245, 108, 108, 0.1);
+        }
+
         .cart-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--c-border); }
         .total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; }
         .btn-block { width: 100%; padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; }
@@ -581,8 +662,6 @@ const translationDB = {
     "三级": { en: "Lvl 3", jp: "Lv 3" }, "四级": { en: "Lvl 4", jp: "Lv 4" },
     "五级": { en: "Lvl 5", jp: "Lv 5" }, "七级": { en: "Lvl 7", jp: "Lv 7" },
     "八级": { en: "Lvl 8", jp: "Lv 8" }
-    // 注意：此处省略了具体的附魔书名翻译以节省空间，但代码逻辑会处理
-    // 实际使用时，请确保 data.json 中的中文名称与这里匹配，或者手动补充
 };
 
 // 界面语言包
@@ -1027,20 +1106,91 @@ function openModal(item) {
 function closeModal() { modalOverlay.classList.remove('active'); }
 modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
 
-// 购物车
+// 购物车逻辑 (更新版：支持数量)
 const cartSidebar = document.getElementById('cartSidebar');
-function addToCart(id) { const item = db.find(i => i.id === id); if(item) { cart.push(item); updateCartUI(); if(navigator.vibrate) navigator.vibrate(10); }}
-function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
-function updateCartUI() {
-    const count = document.getElementById('cartCount');
-    const list = document.getElementById('cartItems');
-    const total = document.getElementById('totalPrice');
-    count.innerText = cart.length; count.classList.toggle('visible', cart.length > 0);
-    const t = translations[currentLang];
-    if(cart.length === 0) list.innerHTML = `<div style="text-align:center;color:var(--c-text-light);margin-top:4rem;">${t.cart_empty}</div>`;
-    else list.innerHTML = cart.map((item, i) => `<div class="cart-item"><div><div style="font-weight:bold;color:var(--c-text)">${item[`name_${currentLang}`]}</div><div style="font-size:0.85rem;color:#d35400">🪙 ${item.price}</div></div><i class="fa-solid fa-trash" style="color:var(--q-red);cursor:pointer;padding:5px" onclick="removeFromCart(${i})"></i></div>`).join('');
-    total.innerText = `🪙 ${cart.reduce((a, b) => a + b.priceValue, 0).toLocaleString()}`;
+
+// 添加商品
+function addToCart(id) {
+    const dbItem = db.find(i => i.id === id);
+    if (!dbItem) return;
+
+    const existingItem = cart.find(i => i.id === id);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ ...dbItem, quantity: 1 });
+    }
+
+    updateCartUI();
+    if(navigator.vibrate) navigator.vibrate(10);
 }
+
+// 移除商品
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+// 更改数量
+function changeQty(index, delta) {
+    const item = cart[index];
+    const newQty = item.quantity + delta;
+    if (newQty <= 0) {
+        removeFromCart(index);
+    } else {
+        item.quantity = newQty;
+        updateCartUI();
+    }
+}
+
+// 手动输入数量
+function inputQty(index, value) {
+    let qty = parseInt(value);
+    if (isNaN(qty) || qty < 1) qty = 1;
+    cart[index].quantity = qty;
+    updateCartUI();
+}
+
+// 更新UI
+function updateCartUI() {
+    const countEl = document.getElementById('cartCount');
+    const listEl = document.getElementById('cartItems');
+    const totalEl = document.getElementById('totalPrice');
+    
+    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+    countEl.innerText = totalQty;
+    countEl.classList.toggle('visible', totalQty > 0);
+
+    const t = translations[currentLang];
+    if (cart.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center;color:var(--c-text-light);margin-top:4rem;">${t.cart_empty}</div>`;
+        totalEl.innerText = `🪙 0`;
+        return;
+    }
+
+    listEl.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+            <div class="cart-item-info">
+                <div style="font-weight:bold;color:var(--c-text)">${item[`name_${currentLang}`]}</div>
+                <div style="font-size:0.85rem;color:#d35400;margin-top:2px">🪙 ${item.price} × ${item.quantity}</div>
+            </div>
+            <div class="cart-controls">
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(${i}, -1)"><i class="fa-solid fa-minus"></i></button>
+                    <input type="number" class="qty-input" value="${item.quantity}" onchange="inputQty(${i}, this.value)" onfocus="this.select()">
+                    <button class="qty-btn" onclick="changeQty(${i}, 1)"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div class="cart-del-btn" onclick="removeFromCart(${i})">
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    const totalPrice = cart.reduce((acc, item) => acc + (item.priceValue * item.quantity), 0);
+    totalEl.innerText = `🪙 ${totalPrice.toLocaleString()}`;
+}
+
 document.getElementById('cartFab').addEventListener('click', () => cartSidebar.classList.add('open'));
 function closeSidebar() { cartSidebar.classList.remove('open'); }
 function closeConfirm() { document.getElementById('confirmModal').classList.remove('active'); }
