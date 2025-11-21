@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>附魔书管理后台 - Pro v2.2</title>
+    <title>附魔书管理后台 - Pro v2.3</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -15,6 +15,7 @@
             --accent-color: #3eaf7c;
             --danger-color: #f56c6c;
             --warning-color: #e6a23c;
+            --info-color: #409eff;
             --input-bg: rgba(0, 0, 0, 0.25);
         }
 
@@ -54,7 +55,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
             color: #fff; font-size: 1rem; margin-bottom: 10px;
         }
-        input:focus, select:focus { outline: none; border-color: var(--accent-color); background: rgba(0,0,0,0.4); }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-color); background: rgba(0,0,0,0.4); }
 
         .btn {
             padding: 10px 20px; border: none; border-radius: 8px;
@@ -63,12 +64,15 @@
         .btn-primary { background: var(--accent-color); color: white; }
         .btn-danger { background: var(--danger-color); color: white; }
         .btn-warning { background: var(--warning-color); color: black; }
+        .btn-info { background: var(--info-color); color: white; }
+        .btn-secondary { background: rgba(255,255,255,0.2); color: white; }
         
         /* 布局 */
         #dashboard-container { display: none; width: 100%; height: 100%; display: flex; }
         .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
         .nav-item { padding: 15px; cursor: pointer; border-radius: 12px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 15px; }
         .nav-item.active { background: var(--accent-color); color: #fff; }
+        .nav-item:hover:not(.active) { background: rgba(255,255,255,0.05); }
         .main-content { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
         .content-section { display: none; animation: fadeIn 0.4s ease; }
         .content-section.active { display: block; }
@@ -87,6 +91,7 @@
         }
         .pending-item.type-add { border-left-color: var(--accent-color); }
         .pending-item.type-delete { border-left-color: var(--danger-color); }
+        .pending-item.type-modify { border-left-color: var(--info-color); }
         
         .pending-badge {
             position: absolute; top: -5px; right: -5px;
@@ -124,7 +129,6 @@
             border-radius: 20px; font-size: 0.8rem; cursor: pointer; user-select: none;
         }
         .tag-choice:hover { background: var(--accent-color); }
-        .tag-choice.selected { background: var(--accent-color); color: white; box-shadow: 0 0 10px rgba(62,175,124,0.4); }
 
         /* 总览筛选栏 */
         .filter-panel { padding: 20px; margin-bottom: 20px; }
@@ -152,15 +156,43 @@
         .card-金::before { background: #e6a23c; }
         .card-红::before { background: #f56c6c; }
 
+        .card-actions {
+            position: absolute; right: 15px; top: 15px; display: flex; gap: 5px;
+        }
+
+        /* 模态框 (自定义弹窗) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-box {
+            background: #1f1f33; border: 1px solid rgba(255,255,255,0.1);
+            width: 90%; max-width: 600px; max-height: 90vh;
+            border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-header {
+            padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem;
+        }
+        .modal-body { padding: 20px; overflow-y: auto; }
+        .modal-footer {
+            padding: 20px; border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: flex-end; gap: 10px;
+        }
+        
         .toast {
             position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; border-radius: 8px; 
-            color: #fff; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 2000;
+            color: #fff; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 3000;
         }
         .toast.active { transform: translateY(0); opacity: 1; }
         .toast.success { background: #67c23a; } .toast.error { background: #f56c6c; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -193,6 +225,9 @@
             </div>
             <div class="nav-item active" onclick="switchTab('add')">
                 <i class="fa-solid fa-plus"></i> 增加附魔书
+            </div>
+            <div class="nav-item" onclick="switchTab('edit')">
+                <i class="fa-solid fa-pen-to-square"></i> 修改附魔书
             </div>
             <div class="nav-item" onclick="switchTab('delete')">
                 <i class="fa-solid fa-trash"></i> 删除附魔书
@@ -239,44 +274,40 @@
                         </div>
                         
                         <div class="form-group full">
-                            <label>等级 (选 "无" 表示无等级)</label>
+                            <label>等级</label>
                             <div class="level-selector" id="addLevelContainer">
-                                <!-- JS 生成 1-7 及 无等级 -->
+                                <!-- JS 生成 -->
                             </div>
                             <input type="hidden" id="inputLevel" value="一级">
                         </div>
 
                         <div class="form-group full">
                             <label>品质</label>
-                            <div class="quality-selector">
-                                <div class="q-btn" style="background:#909399" onclick="selectColor('白', this)">白 (普通)</div>
-                                <div class="q-btn" style="background:#67c23a" onclick="selectColor('绿', this)">绿 (优秀)</div>
-                                <div class="q-btn" style="background:#409eff" onclick="selectColor('蓝', this)">蓝 (稀有)</div>
-                                <div class="q-btn" style="background:#a355d6" onclick="selectColor('紫', this)">紫 (史诗)</div>
-                                <div class="q-btn" style="background:#e6a23c" onclick="selectColor('金', this)">金 (传说)</div>
-                                <div class="q-btn" style="background:#f56c6c" onclick="selectColor('红', this)">红 (神话)</div>
+                            <div class="quality-selector" id="addColorContainer">
+                                <div class="q-btn" style="background:#909399" onclick="selectColor('白', this, 'inputColor')">白 (普通)</div>
+                                <div class="q-btn" style="background:#67c23a" onclick="selectColor('绿', this, 'inputColor')">绿 (优秀)</div>
+                                <div class="q-btn" style="background:#409eff" onclick="selectColor('蓝', this, 'inputColor')">蓝 (稀有)</div>
+                                <div class="q-btn" style="background:#a355d6" onclick="selectColor('紫', this, 'inputColor')">紫 (史诗)</div>
+                                <div class="q-btn" style="background:#e6a23c" onclick="selectColor('金', this, 'inputColor')">金 (传说)</div>
+                                <div class="q-btn" style="background:#f56c6c" onclick="selectColor('红', this, 'inputColor')">红 (神话)</div>
                             </div>
                             <input type="hidden" id="inputColor" value="白">
                         </div>
 
                         <div class="form-group full">
-                            <label>冲突附魔 (来源于 data.json 中已有的附魔书)</label>
-                            <input type="text" id="inputConflicts" placeholder="点击下方标签添加，或手动输入">
+                            <label>冲突附魔 (现有附魔)</label>
+                            <input type="text" id="inputConflicts" placeholder="点击标签或手动输入">
                             <div class="tags-wrapper">
-                                <input type="text" style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); padding:5px; margin-bottom:10px; width:100%" placeholder="🔍 搜索现有附魔..." oninput="filterTags(this, 'conflictTagsContainer')">
-                                <div class="tags-container" id="conflictTagsContainer">
-                                    <!-- JS 动态填充 -->
-                                </div>
+                                <input type="text" style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); padding:5px; margin-bottom:10px; width:100%" placeholder="🔍 搜索..." oninput="filterTags(this, 'conflictTagsContainer')">
+                                <div class="tags-container" id="conflictTagsContainer"></div>
                             </div>
                         </div>
 
                         <div class="form-group full">
                             <label>适用物品</label>
-                            <input type="text" id="inputTarget" placeholder="点击下方标签添加">
+                            <input type="text" id="inputTarget" placeholder="点击标签添加">
                             <div class="tags-wrapper">
-                                <div class="tags-container" id="targetTagsContainer">
-                                    <!-- JS 填充预设工具 -->
-                                </div>
+                                <div class="tags-container" id="targetTagsContainer"></div>
                             </div>
                         </div>
 
@@ -286,13 +317,22 @@
                         </div>
 
                         <div class="form-group full">
-                            <button class="btn btn-primary" style="width:100%" onclick="saveItem()">保存到暂存区</button>
+                            <button class="btn btn-primary" style="width:100%" onclick="saveItem('add')">保存到暂存区</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 功能2: 删除 -->
+            <!-- 功能2: 修改 (新功能) -->
+            <div id="view-edit" class="content-section">
+                <div class="glass-panel" style="padding:15px; margin-bottom:20px; display:flex; gap:10px">
+                    <i class="fa-solid fa-search" style="padding:12px; color:rgba(255,255,255,0.5)"></i>
+                    <input type="text" id="searchEdit" placeholder="输入名称搜索要修改的附魔书..." oninput="renderCards('edit')" style="border:none; background:transparent; margin:0">
+                </div>
+                <div id="editCardGrid" class="card-grid"></div>
+            </div>
+
+            <!-- 功能3: 删除 -->
             <div id="view-delete" class="content-section">
                 <div class="glass-panel" style="padding:15px; margin-bottom:20px; display:flex; gap:10px">
                     <i class="fa-solid fa-search" style="padding:12px; color:rgba(255,255,255,0.5)"></i>
@@ -301,7 +341,7 @@
                 <div id="deleteCardGrid" class="card-grid"></div>
             </div>
 
-            <!-- 功能3: 总览 -->
+            <!-- 功能4: 总览 -->
             <div id="view-list" class="content-section">
                 <div class="glass-panel filter-panel">
                     <!-- 搜索行 -->
@@ -347,27 +387,106 @@
         </div>
     </div>
 
+    <!-- 删除确认模态框 -->
+    <div id="delete-modal" class="modal-overlay">
+        <div class="modal-box" style="max-width:400px">
+            <div class="modal-header">
+                <span><i class="fa-solid fa-triangle-exclamation" style="color:var(--danger-color)"></i> 确认删除</span>
+                <i class="fa-solid fa-xmark" style="cursor:pointer" onclick="closeModal('delete-modal')"></i>
+            </div>
+            <div class="modal-body" style="text-align:center; padding:30px 20px">
+                <p style="font-size:1.1rem; margin-bottom:10px">确定要删除 <span id="delItemName" style="color:var(--accent-color); font-weight:bold"></span> 吗？</p>
+                <p style="font-size:0.9rem; opacity:0.6">此操作将加入待更新列表，发布后生效。</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('delete-modal')">取消</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">确认删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑模态框 -->
+    <div id="edit-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span><i class="fa-solid fa-pen-to-square"></i> 修改附魔书数据</span>
+                <i class="fa-solid fa-xmark" style="cursor:pointer" onclick="closeModal('edit-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>名称</label>
+                        <input type="text" id="editName">
+                    </div>
+                    <div class="form-group">
+                        <label>价格</label>
+                        <input type="number" id="editPrice">
+                    </div>
+                    <div class="form-group full">
+                        <label>等级</label>
+                        <div class="level-selector" id="editLevelContainer">
+                            <!-- 动态生成 -->
+                        </div>
+                        <input type="hidden" id="editLevel">
+                    </div>
+                    <div class="form-group full">
+                        <label>品质</label>
+                        <div class="quality-selector" id="editColorContainer">
+                             <div class="q-btn" data-val="白" style="background:#909399" onclick="selectColor('白', this, 'editColor')">白</div>
+                             <div class="q-btn" data-val="绿" style="background:#67c23a" onclick="selectColor('绿', this, 'editColor')">绿</div>
+                             <div class="q-btn" data-val="蓝" style="background:#409eff" onclick="selectColor('蓝', this, 'editColor')">蓝</div>
+                             <div class="q-btn" data-val="紫" style="background:#a355d6" onclick="selectColor('紫', this, 'editColor')">紫</div>
+                             <div class="q-btn" data-val="金" style="background:#e6a23c" onclick="selectColor('金', this, 'editColor')">金</div>
+                             <div class="q-btn" data-val="红" style="background:#f56c6c" onclick="selectColor('红', this, 'editColor')">红</div>
+                        </div>
+                        <input type="hidden" id="editColor">
+                    </div>
+                    <div class="form-group full">
+                        <label>冲突附魔</label>
+                        <input type="text" id="editConflicts">
+                        <!-- 这里复用 conflictTagsContainer 可能会有点问题，简单起见这里暂不显示标签云，或者我们可以克隆一份 -->
+                        <div style="font-size:0.8rem; opacity:0.5; margin-top:5px">注：多个冲突请用逗号分隔</div>
+                    </div>
+                    <div class="form-group full">
+                        <label>适用物品</label>
+                        <input type="text" id="editTarget">
+                    </div>
+                    <div class="form-group full">
+                        <label>描述</label>
+                        <textarea id="editDesc" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('edit-modal')">取消</button>
+                <button class="btn btn-primary" onclick="saveEdit()">保存修改</button>
+            </div>
+        </div>
+    </div>
+
     <div id="toast" class="toast"></div>
 
     <script>
         let items = [];
         let sha = ''; 
-        let pendingChanges = []; // 存储待更新的操作 {id, type, item}
+        let pendingChanges = []; 
+        let currentDeleteIndex = -1;
+        let currentEditIndex = -1;
 
-        let currentFilters = {
-            level: 'all',
-            quality: 'all',
-            target: 'all'
-        };
+        let currentFilters = { level: 'all', quality: 'all', target: 'all' };
 
         const PRESET_TOOLS = [
             "剑", "斧", "镐", "锹", "锄", "弓", "弩", "三叉戟", 
             "头盔", "胸甲", "护腿", "靴子", "盾牌", "鞘翅", "钓鱼竿", "工具", "盔甲", "全物品"
         ];
 
+        const LEVELS = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级"];
+
         window.onload = () => {
-            initAddLevelButtons();
+            initLevelButtons('addLevelContainer', 'inputLevel');
+            initLevelButtons('editLevelContainer', 'editLevel');
             initAddTargetTags();
+            
             const savedPass = localStorage.getItem('admin_pass');
             if (savedPass) {
                 document.getElementById('ghToken').value = savedPass;
@@ -375,12 +494,37 @@
             }
         };
 
-        function getAuthToken() {
-            return document.getElementById('ghToken').value.trim();
+        // --- 初始化辅助函数 ---
+        function initLevelButtons(containerId, inputId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            LEVELS.forEach((lvl, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'level-btn';
+                btn.innerText = lvl === "无等级" ? "无" : (idx);
+                btn.onclick = () => {
+                    container.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(inputId).value = lvl;
+                };
+                container.appendChild(btn);
+            });
         }
 
+        function initAddTargetTags() {
+            const container = document.getElementById('targetTagsContainer');
+            PRESET_TOOLS.forEach(tool => {
+                const tag = document.createElement('div');
+                tag.className = 'tag-choice';
+                tag.innerText = tool;
+                tag.onclick = () => addText('inputTarget', tool);
+                container.appendChild(tag);
+            });
+        }
+
+        // --- 登录逻辑 ---
         async function attemptLogin() {
-            const token = getAuthToken();
+            const token = document.getElementById('ghToken').value.trim();
             if (!token) return showToast("请输入密钥", "error");
 
             const owner = document.getElementById('ghOwner').value;
@@ -422,7 +566,7 @@
             }
         }
 
-        // 统一刷新所有动态数据
+        // --- 数据刷新 ---
         function refreshDynamicData() {
             updateConflictTagsFromData();
             updateTargetFilterButtons();
@@ -432,13 +576,12 @@
         function updateConflictTagsFromData() {
             const container = document.getElementById('conflictTagsContainer');
             container.innerHTML = '';
-            
-            const uniqueNames = [...new Set(items.map(i => i.name_zh))];
+            const uniqueNames = [...new Set(items.map(i => i.name_zh))].sort();
             if(uniqueNames.length === 0) {
-                container.innerHTML = '<span style="font-size:0.8rem; color:rgba(255,255,255,0.4)">暂无数据，请先添加附魔书</span>';
+                container.innerHTML = '<span style="opacity:0.4; font-size:0.8rem">暂无数据</span>';
                 return;
             }
-            uniqueNames.sort().forEach(name => {
+            uniqueNames.forEach(name => {
                 const tag = document.createElement('div');
                 tag.className = 'tag-choice';
                 tag.innerText = name;
@@ -450,14 +593,12 @@
         function updateTargetFilterButtons() {
             const container = document.getElementById('filterTargetGroup');
             container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'target\', \'all\', this)">全部</div>';
-            
             let allTargets = [];
             items.forEach(item => {
                 const targets = item.target_zh.split(/[,，]/).map(t => t.trim());
                 allTargets = allTargets.concat(targets);
             });
-            const uniqueTargets = [...new Set(allTargets)].filter(t => t);
-            uniqueTargets.forEach(target => {
+            [...new Set(allTargets)].filter(t => t).forEach(target => {
                 const btn = document.createElement('div');
                 btn.className = 'filter-btn';
                 btn.innerText = target;
@@ -470,17 +611,8 @@
             const container = document.getElementById('filterLevelGroup');
             container.innerHTML = '<div class="filter-btn active" onclick="setFilter(\'level\', \'all\', this)">全部</div>';
             const uniqueLevels = [...new Set(items.map(i => i.level_zh))];
-            const sortOrder = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级", "八级", "九级", "十级"];
-            
-            uniqueLevels.sort((a, b) => {
-                const indexA = sortOrder.indexOf(a);
-                const indexB = sortOrder.indexOf(b);
-                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                if (indexA !== -1) return -1;
-                if (indexB !== -1) return 1;
-                return a.localeCompare(b, 'zh-CN');
-            });
-
+            // 简单排序
+            uniqueLevels.sort(); 
             uniqueLevels.forEach(level => {
                 if (!level) return;
                 const btn = document.createElement('div');
@@ -491,33 +623,7 @@
             });
         }
 
-        function initAddLevelButtons() {
-            const container = document.getElementById('addLevelContainer');
-            const levels = ["无等级", "一级", "二级", "三级", "四级", "五级", "六级", "七级"];
-            levels.forEach((lvl, idx) => {
-                const btn = document.createElement('div');
-                btn.className = 'level-btn' + (idx === 1 ? ' active' : '');
-                btn.innerText = lvl === "无等级" ? "无" : (idx);
-                btn.onclick = () => {
-                    document.querySelectorAll('#addLevelContainer .level-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    document.getElementById('inputLevel').value = lvl;
-                };
-                container.appendChild(btn);
-            });
-        }
-
-        function initAddTargetTags() {
-            const container = document.getElementById('targetTagsContainer');
-            PRESET_TOOLS.forEach(tool => {
-                const tag = document.createElement('div');
-                tag.className = 'tag-choice';
-                tag.innerText = tool;
-                tag.onclick = () => addText('inputTarget', tool);
-                container.appendChild(tag);
-            });
-        }
-
+        // --- 界面交互 ---
         function switchTab(tab) {
             document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + tab).classList.add('active');
@@ -525,14 +631,16 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             const navs = document.querySelectorAll('.nav-item');
             if(tab==='add') navs[0].classList.add('active');
-            if(tab==='delete') navs[1].classList.add('active');
-            if(tab==='list') navs[2].classList.add('active');
+            if(tab==='edit') navs[1].classList.add('active');
+            if(tab==='delete') navs[2].classList.add('active');
+            if(tab==='list') navs[3].classList.add('active');
 
             if(tab === 'list') {
                 refreshDynamicData();
                 renderCards('list');
             }
             if(tab === 'delete') renderCards('delete');
+            if(tab === 'edit') renderCards('edit');
         }
 
         function addText(id, text) {
@@ -550,9 +658,11 @@
             });
         }
 
-        function selectColor(color, el) {
-            document.getElementById('inputColor').value = color;
-            document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+        function selectColor(color, el, hiddenInputId) {
+            document.getElementById(hiddenInputId).value = color;
+            // 找到对应的容器
+            const container = el.parentElement;
+            container.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
         }
 
@@ -564,10 +674,17 @@
             renderCards('list');
         }
 
+        // --- 核心渲染逻辑 ---
         function renderCards(mode) {
-            const container = document.getElementById(mode === 'delete' ? 'deleteCardGrid' : 'listCardGrid');
+            let containerId = '';
+            let searchId = '';
+            if (mode === 'delete') { containerId = 'deleteCardGrid'; searchId = 'searchDelete'; }
+            else if (mode === 'edit') { containerId = 'editCardGrid'; searchId = 'searchEdit'; }
+            else { containerId = 'listCardGrid'; searchId = 'searchList'; }
+
+            const container = document.getElementById(containerId);
             container.innerHTML = '';
-            const searchText = document.getElementById(mode === 'delete' ? 'searchDelete' : 'searchList').value.toLowerCase();
+            const searchText = document.getElementById(searchId).value.toLowerCase();
 
             items.forEach((item, index) => {
                 if(searchText && !item.name_zh.toLowerCase().includes(searchText)) return;
@@ -580,26 +697,27 @@
                 const card = document.createElement('div');
                 card.className = `book-card card-${item.color}`;
                 
-                let btnHtml = '';
+                // 按钮逻辑
+                let actionBtn = '';
                 if(mode === 'delete') {
-                    btnHtml = `<button class="btn btn-danger" style="padding:5px 10px; font-size:0.8rem" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>`;
+                    actionBtn = `<button class="btn btn-danger" style="padding:5px 10px; font-size:0.8rem" onclick="openDeleteModal(${index})"><i class="fa-solid fa-trash"></i> 删除</button>`;
+                } else if (mode === 'edit') {
+                    actionBtn = `<button class="btn btn-info" style="padding:5px 10px; font-size:0.8rem" onclick="openEditModal(${index})"><i class="fa-solid fa-pen"></i> 编辑</button>`;
                 }
-
-                const levelDisplay = item.level_zh === '无等级' ? '无等级' : item.level_zh;
 
                 card.innerHTML = `
                     <div style="display:flex; justify-content:space-between; margin-bottom:10px">
                         <strong style="font-size:1.1rem">${item.name_zh}</strong>
-                        ${btnHtml}
+                        <div>${actionBtn}</div>
                     </div>
                     <div style="font-size:0.9rem; margin-bottom:8px; display:flex; gap:10px; color:rgba(255,255,255,0.8)">
-                        <span style="background:rgba(255,255,255,0.15); padding:2px 8px; border-radius:4px">${levelDisplay}</span>
+                        <span style="background:rgba(255,255,255,0.15); padding:2px 8px; border-radius:4px">${item.level_zh}</span>
                         <span style="color:#e6a23c">🪙 ${item.price}</span>
                     </div>
                     <div style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:5px">
                         <i class="fa-solid fa-wrench"></i> ${item.target_zh}
                     </div>
-                    <div style="font-size:0.85rem; opacity:0.6; height:2.4em; overflow:hidden">${item.desc_zh}</div>
+                    <div style="font-size:0.85rem; opacity:0.6; height:2.4em; overflow:hidden; text-overflow:ellipsis;">${item.desc_zh}</div>
                 `;
                 container.appendChild(card);
             });
@@ -607,7 +725,7 @@
             if(container.innerHTML === '') container.innerHTML = '<div style="color:gray; padding:20px">没有找到匹配的附魔书</div>';
         }
 
-        // ================= 核心逻辑：待更新系统 =================
+        // --- 待更新列表系统 ---
 
         function renderPendingList() {
             const container = document.getElementById('pendingListContainer');
@@ -623,7 +741,6 @@
                 return;
             }
 
-            // 更新UI
             panel.style.display = 'flex';
             badge.style.display = 'flex';
             badge.innerText = pendingChanges.length;
@@ -633,32 +750,35 @@
                 const el = document.createElement('div');
                 el.className = `pending-item type-${change.type}`;
                 
-                const typeText = change.type === 'add' ? '新增' : '删除';
-                const typeColor = change.type === 'add' ? '#67c23a' : '#f56c6c';
+                let typeText = '';
+                let typeColor = '';
+                if(change.type === 'add') { typeText = '新增'; typeColor = '#67c23a'; }
+                else if(change.type === 'delete') { typeText = '删除'; typeColor = '#f56c6c'; }
+                else { typeText = '修改'; typeColor = '#409eff'; }
                 
                 el.innerHTML = `
                     <div>
                         <span style="color:${typeColor}; font-weight:bold; margin-right:8px">[${typeText}]</span>
-                        ${change.item.name_zh} <span style="font-size:0.8em; opacity:0.7">(${change.item.level_zh})</span>
+                        ${change.item.name_zh}
                     </div>
                     <button class="btn btn-warning" style="padding:4px 8px; font-size:0.75rem" onclick="undoChange(${change.id})">
-                        <i class="fa-solid fa-rotate-left"></i> 撤回
+                        <i class="fa-solid fa-rotate-left"></i>
                     </button>
                 `;
                 container.appendChild(el);
             });
         }
 
-        function addToPending(type, item) {
+        function addToPending(type, item, oldItem = null) {
             pendingChanges.push({
-                id: Date.now() + Math.random(), // 唯一ID
+                id: Date.now() + Math.random(),
                 type: type,
-                item: item
+                item: item,
+                oldItem: oldItem // 用于修改撤回
             });
             renderPendingList();
         }
 
-        // 撤回操作
         function undoChange(changeId) {
             const index = pendingChanges.findIndex(c => c.id === changeId);
             if(index === -1) return;
@@ -666,30 +786,39 @@
             const change = pendingChanges[index];
 
             if (change.type === 'add') {
-                // 如果之前是新增，现在撤回需要删除该物品
-                // 由于items中对象引用可能一致，我们尝试用引用删除，或者用属性匹配
-                const itemIdx = items.indexOf(change.item);
-                if (itemIdx > -1) {
-                    items.splice(itemIdx, 1);
-                }
+                // 撤回新增：删除该项
+                const idx = items.indexOf(change.item);
+                if (idx > -1) items.splice(idx, 1);
             } else if (change.type === 'delete') {
-                // 如果之前是删除，现在撤回需要把物品加回去
+                // 撤回删除：加回去
                 items.push(change.item);
+            } else if (change.type === 'modify') {
+                // 撤回修改：将当前项替换回旧项
+                const currentItemIdx = items.indexOf(change.item);
+                if (currentItemIdx > -1) {
+                    items[currentItemIdx] = change.oldItem;
+                }
             }
 
             pendingChanges.splice(index, 1);
             
             refreshDynamicData();
             // 刷新当前视图
-            const activeTab = document.querySelector('.nav-item.active').innerText.includes('删除') ? 'delete' : 
-                              document.querySelector('.nav-item.active').innerText.includes('总览') ? 'list' : 'add';
-            if(activeTab !== 'add') renderCards(activeTab);
+            const activeNavItem = document.querySelector('.nav-item.active');
+            if (activeNavItem) {
+                if(activeNavItem.innerText.includes('删除')) renderCards('delete');
+                else if(activeNavItem.innerText.includes('修改')) renderCards('edit');
+                else if(activeNavItem.innerText.includes('总览')) renderCards('list');
+            }
             
             renderPendingList();
             showToast("已撤回操作", "success");
         }
 
-        function saveItem() {
+        // --- CRUD 操作 ---
+
+        function saveItem(mode) {
+            // 仅用于新增
             const name = document.getElementById('inputName').value;
             if(!name) return showToast("名称必填", "error");
 
@@ -697,7 +826,7 @@
                 id: name,
                 name_zh: name,
                 level_zh: document.getElementById('inputLevel').value,
-                price: document.getElementById('inputPrice').value || 0,
+                price: parseInt(document.getElementById('inputPrice').value) || 0,
                 desc_zh: document.getElementById('inputDesc').value || '无',
                 color: document.getElementById('inputColor').value,
                 target_zh: document.getElementById('inputTarget').value || '通用',
@@ -706,32 +835,105 @@
 
             items.push(newItem);
             addToPending('add', newItem);
-            
             showToast("已添加到待更新列表", "success");
             
-            refreshDynamicData();
-            
+            // 清空表单
             document.getElementById('inputName').value = '';
             document.getElementById('inputDesc').value = '';
+            refreshDynamicData();
         }
 
-        function deleteItem(index) {
-            if(confirm("确定将此删除操作加入待更新列表？")) {
-                const deletedItem = items[index];
-                items.splice(index, 1);
-                
-                addToPending('delete', deletedItem);
-                
-                renderCards('delete');
-                refreshDynamicData();
-                showToast("删除已暂存", "success");
-            }
+        // --- 模态框逻辑 ---
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
         }
 
+        // 删除逻辑
+        function openDeleteModal(index) {
+            currentDeleteIndex = index;
+            const item = items[index];
+            document.getElementById('delItemName').innerText = item.name_zh;
+            document.getElementById('delete-modal').style.display = 'flex';
+        }
+
+        function confirmDelete() {
+            if(currentDeleteIndex === -1) return;
+            const deletedItem = items[currentDeleteIndex];
+            items.splice(currentDeleteIndex, 1);
+            addToPending('delete', deletedItem);
+            
+            closeModal('delete-modal');
+            renderCards('delete');
+            refreshDynamicData();
+            showToast("删除已暂存", "success");
+        }
+
+        // 编辑逻辑
+        function openEditModal(index) {
+            currentEditIndex = index;
+            const item = items[index];
+
+            document.getElementById('editName').value = item.name_zh;
+            document.getElementById('editPrice').value = item.price;
+            document.getElementById('editConflicts').value = item.conflicts_zh;
+            document.getElementById('editTarget').value = item.target_zh;
+            document.getElementById('editDesc').value = item.desc_zh;
+            
+            // 设置等级
+            document.getElementById('editLevel').value = item.level_zh;
+            const levelBtns = document.querySelectorAll('#editLevelContainer .level-btn');
+            levelBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if( (item.level_zh === "无等级" && btn.innerText === "无") || 
+                    item.level_zh === btn.innerText || 
+                    (item.level_zh.includes(btn.innerText) && btn.innerText !== "无") ) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // 设置颜色
+            document.getElementById('editColor').value = item.color;
+            const colorBtns = document.querySelectorAll('#editColorContainer .q-btn');
+            colorBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.val === item.color) btn.classList.add('active');
+            });
+
+            document.getElementById('edit-modal').style.display = 'flex';
+        }
+
+        function saveEdit() {
+            if(currentEditIndex === -1) return;
+            const oldItem = items[currentEditIndex];
+            
+            const newItem = {
+                ...oldItem, // 保留原有其他字段
+                name_zh: document.getElementById('editName').value,
+                price: parseInt(document.getElementById('editPrice').value) || 0,
+                level_zh: document.getElementById('editLevel').value,
+                color: document.getElementById('editColor').value,
+                conflicts_zh: document.getElementById('editConflicts').value,
+                target_zh: document.getElementById('editTarget').value,
+                desc_zh: document.getElementById('editDesc').value
+            };
+
+            // 更新数组
+            items[currentEditIndex] = newItem;
+            
+            addToPending('modify', newItem, oldItem);
+            
+            closeModal('edit-modal');
+            renderCards('edit');
+            refreshDynamicData();
+            showToast("修改已暂存", "success");
+        }
+
+        // --- GitHub 推送 ---
         async function pushToGitHub() {
             if(pendingChanges.length === 0) return showToast("没有需要更新的内容", "error");
 
-            const token = getAuthToken();
+            const token = document.getElementById('ghToken').value.trim();
             if(!token) return showToast("密钥无效", "error");
 
             const owner = document.getElementById('ghOwner').value;
@@ -751,10 +953,8 @@
                 const data = await res.json();
                 sha = data.content.sha;
                 
-                // 成功后清空待处理列表
                 pendingChanges = [];
                 renderPendingList();
-                
                 showToast("✅ 发布成功，列表已清空", "success");
             } catch(e) {
                 showToast("发布失败: " + e.message, "error");
