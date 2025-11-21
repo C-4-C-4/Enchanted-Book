@@ -117,6 +117,5 @@ Canvas: 用于星图视图的绘制与交互。<br>
 FontAwesome: 用于界面图标。<br>
 GitHub REST API: 用于数据的云端同步。<br>
 
-🤝 贡献<br>
-欢迎提交 Issue 或 Pull Request 来改进代码！<br>
+🤝 贡献 欢迎提交 Issue 或 Pull Request 来改进代码！<br>
 ❤️ by CCCC4444
