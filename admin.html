@@ -1,9 +1,11 @@
+--- START OF FILE admin.html ---
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>附魔书管理后台 - Pro v2.3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>附魔书管理后台 - Pro v2.3 (Mobile)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -19,14 +21,14 @@
             --input-bg: rgba(0, 0, 0, 0.25);
         }
 
-        * { box-sizing: border-box; transition: all 0.25s ease; }
+        * { box-sizing: border-box; transition: all 0.25s ease; -webkit-tap-highlight-color: transparent; }
         body {
             margin: 0;
             font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
             background: linear-gradient(135deg, #13131f 0%, #1f1f33 50%, #0b0b14 100%);
             color: var(--text-color);
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* 桌面端保持 hidden，移动端在 query 中覆盖 */
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -46,9 +48,9 @@
         #login-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
-            z-index: 1000; background: inherit;
+            z-index: 1000; background: inherit; padding: 20px;
         }
-        .login-box { width: 400px; padding: 40px; text-align: center; }
+        .login-box { width: 400px; padding: 40px; text-align: center; max-width: 100%; }
         
         input, textarea, select {
             width: 100%; padding: 12px 15px; background: var(--input-bg);
@@ -60,6 +62,7 @@
         .btn {
             padding: 10px 20px; border: none; border-radius: 8px;
             cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            white-space: nowrap;
         }
         .btn-primary { background: var(--accent-color); color: white; }
         .btn-danger { background: var(--danger-color); color: white; }
@@ -69,12 +72,12 @@
         
         /* 布局 */
         #dashboard-container { display: none; width: 100%; height: 100%; display: flex; }
-        .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
-        .nav-item { padding: 15px; cursor: pointer; border-radius: 12px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 15px; }
+        .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; z-index: 10; }
+        .nav-item { padding: 15px; cursor: pointer; border-radius: 12px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
         .nav-item.active { background: var(--accent-color); color: #fff; }
         .nav-item:hover:not(.active) { background: rgba(255,255,255,0.05); }
-        .main-content { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
-        .content-section { display: none; animation: fadeIn 0.4s ease; }
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; position: relative; overflow-x: hidden; }
+        .content-section { display: none; animation: fadeIn 0.4s ease; padding-bottom: 60px; } /* 底部留白防止被遮挡 */
         .content-section.active { display: block; }
 
         /* 待更新列表面板 */
@@ -87,7 +90,7 @@
         .pending-item {
             display: flex; justify-content: space-between; align-items: center;
             padding: 10px; border-radius: 8px; font-size: 0.9rem;
-            background: rgba(0,0,0,0.3); border-left: 3px solid transparent;
+            background: rgba(0,0,0,0.6); border-left: 3px solid transparent; /* 加深背景增加可读性 */
         }
         .pending-item.type-add { border-left-color: var(--accent-color); }
         .pending-item.type-delete { border-left-color: var(--danger-color); }
@@ -186,13 +189,86 @@
         .toast {
             position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; border-radius: 8px; 
             color: #fff; transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 3000;
+            max-width: 90%; width: auto; text-align: center;
         }
         .toast.active { transform: translateY(0); opacity: 1; }
         .toast.success { background: #67c23a; } .toast.error { background: #f56c6c; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInTop { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        /* --- 移动端适配 Media Queries --- */
+        @media (max-width: 768px) {
+            /* 布局改为纵向 */
+            #dashboard-container { flex-direction: column; }
+            
+            /* 侧边栏变为顶部横向滚动导航 */
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                padding: 10px; 
+                flex-direction: row; 
+                overflow-x: auto; 
+                border-radius: 0 0 16px 16px; 
+                border-left: none;
+                border-bottom: 1px solid rgba(255,255,255,0.15);
+                background: rgba(30, 30, 40, 0.8);
+                flex-shrink: 0;
+            }
+            /* 隐藏侧边栏标题或缩小 */
+            .sidebar > div:first-child { display: none; } 
+            
+            .nav-item { 
+                padding: 8px 14px; 
+                font-size: 0.9rem; 
+                white-space: nowrap; 
+                background: rgba(255,255,255,0.05);
+            }
+
+            /* 主内容区域 */
+            .main-content { padding: 15px; width: 100%; }
+            
+            /* 标题区域调整 */
+            #pageTitle { font-size: 1.4rem; margin-bottom: 5px; }
+            div[style*="display:flex; justify-content:space-between"] {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            /* 发布按钮全宽 */
+            #pushBtn { width: 100%; justify-content: center; }
+            
+            /* 待更新列表浮动面板调整 */
+            #pending-panel {
+                width: 92%; left: 4%; top: 140px; right: auto;
+                animation: slideInTop 0.3s ease;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+            }
+
+            /* 表单改为单列 */
+            .form-grid { display: flex; flex-direction: column; gap: 15px; }
+            .form-group.full { grid-column: auto; }
+            .glass-panel[style*="padding: 30px;"] { padding: 20px !important; }
+
+            /* 筛选面板 */
+            .filter-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .filter-label { margin-bottom: 2px; color: var(--accent-color); font-weight: bold;}
+            #searchList { width: 100% !important; }
+
+            /* 模态框 */
+            .modal-box { width: 95%; margin: 10px; max-height: 85vh; }
+            
+            /* Toast 居中 */
+            .toast { left: 50%; transform: translate(-50%, 100px); bottom: 40px; width: 80%; }
+            .toast.active { transform: translate(-50%, 0); }
+
+            /* 卡片列表 */
+            .card-grid { grid-template-columns: 1fr; } /* 手机端强制单列 */
+        }
     </style>
 </head>
 <body>
@@ -224,16 +300,16 @@
                 <i class="fa-solid fa-book-journal-whills"></i> 管理后台
             </div>
             <div class="nav-item active" onclick="switchTab('add')">
-                <i class="fa-solid fa-plus"></i> 增加附魔书
+                <i class="fa-solid fa-plus"></i> 增加
             </div>
             <div class="nav-item" onclick="switchTab('edit')">
-                <i class="fa-solid fa-pen-to-square"></i> 修改附魔书
+                <i class="fa-solid fa-pen-to-square"></i> 修改
             </div>
             <div class="nav-item" onclick="switchTab('delete')">
-                <i class="fa-solid fa-trash"></i> 删除附魔书
+                <i class="fa-solid fa-trash"></i> 删除
             </div>
             <div class="nav-item" onclick="switchTab('list')">
-                <i class="fa-solid fa-list-ul"></i> 附魔书总览
+                <i class="fa-solid fa-list-ul"></i> 总览
             </div>
         </div>
 
@@ -242,7 +318,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
                 <h1 id="pageTitle" style="margin:0; font-size:1.8rem">增加附魔书</h1>
                 
-                <div style="position:relative">
+                <div style="position:relative; width: 100%;">
                     <button class="btn btn-primary" id="pushBtn" onclick="pushToGitHub()">
                         <i class="fa-solid fa-cloud-arrow-up"></i> 发布更新到 GitHub
                     </button>
@@ -252,8 +328,9 @@
 
             <!-- 待更新列表 (Floating) -->
             <div id="pending-panel" class="glass-panel">
-                <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); margin-bottom:10px">
-                    <i class="fa-solid fa-clock-rotate-left"></i> 待发布更改
+                <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); margin-bottom:10px; display:flex; justify-content:space-between;">
+                    <span><i class="fa-solid fa-clock-rotate-left"></i> 待发布更改</span>
+                    <i class="fa-solid fa-chevron-down" style="opacity:0.5; display:none" onclick="document.getElementById('pending-panel').style.display='none'"></i>
                 </div>
                 <div id="pendingListContainer">
                     <!-- 动态插入 -->
