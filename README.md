@@ -58,10 +58,10 @@
 ```
 
 ⚙️ 管理后台配置 (Admin Setup)
-要使用 admin.html 管理数据，您需要进行以下配置：
+要使用 admin.html 管理数据，您需要进行以下配置：<br>
 1.获取 GitHub Token:
 访问 GitHub Settings -> Developer settings -> Personal access tokens.
-生成一个新的 Token (Classic)，勾选 repo 权限（用于读写仓库文件）。
+生成一个新的 Token (Classic)，勾选 repo 权限（用于读写仓库文件）。<br>
 2.配置仓库信息:
 打开 admin.html。
 在代码中找到以下隐藏的 input 区域（约第 150 行），修改 value 为您的实际信息：
@@ -99,7 +99,7 @@ data.json 存储了所有附魔书信息，格式如下：
 ]
 ```
 
-品质颜色对照
+品质颜色对照<br>
 颜色	品质	代表含义
 白	普通	Common
 绿	优秀	Uncommon
@@ -108,13 +108,13 @@ data.json 存储了所有附魔书信息，格式如下：
 金	传说	Legend
 红	神话	Mythic
 
-🛠️ 技术栈 (Tech Stack)
-HTML5 / CSS3:使用了 CSS Variables, Flexbox, Grid, Glassmorphism (毛玻璃效果), Keyframe Animations.
-JavaScript (ES6+): 原生 JS 实现，无第三方重型框架依赖。
-Canvas: 用于星图视图的绘制与交互。
-FontAwesome: 用于界面图标。
-GitHub REST API: 用于数据的云端同步。
+🛠️ 技术栈 (Tech Stack)<br>
+HTML5 / CSS3:使用了 CSS Variables, Flexbox, Grid, Glassmorphism (毛玻璃效果), Keyframe Animations.<br>
+JavaScript (ES6+): 原生 JS 实现，无第三方重型框架依赖。<br>
+Canvas: 用于星图视图的绘制与交互。<br>
+FontAwesome: 用于界面图标。<br>
+GitHub REST API: 用于数据的云端同步。<br>
 
-🤝 贡献
+🤝 贡献<br>
 欢迎提交 Issue 或 Pull Request 来改进代码！
 Designed with ❤️ by Xianyun
