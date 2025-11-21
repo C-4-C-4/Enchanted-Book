@@ -99,7 +99,8 @@ data.json 存储了所有附魔书信息，格式如下：
 ]
 ```
 
-品质颜色对照<br>
+品质颜色对照
+```
 颜色	品质	代表含义
 白	普通	Common
 绿	优秀	Uncommon
@@ -107,6 +108,7 @@ data.json 存储了所有附魔书信息，格式如下：
 紫	史诗	Epic
 金	传说	Legend
 红	神话	Mythic
+```
 
 🛠️ 技术栈 (Tech Stack)<br>
 HTML5 / CSS3:使用了 CSS Variables, Flexbox, Grid, Glassmorphism (毛玻璃效果), Keyframe Animations.<br>
@@ -116,5 +118,5 @@ FontAwesome: 用于界面图标。<br>
 GitHub REST API: 用于数据的云端同步。<br>
 
 🤝 贡献<br>
-欢迎提交 Issue 或 Pull Request 来改进代码！
-Designed with ❤️ by Xianyun
+欢迎提交 Issue 或 Pull Request 来改进代码！<br>
+❤️ by CCCC4444
