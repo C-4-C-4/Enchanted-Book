@@ -2768,15 +2768,5 @@
         "color": "蓝",
         "target_zh": "弓, 弩, 剑, 斧, 锄, 戟",
         "conflicts_zh": "一剑开天门"
-    },
-    {
-        "id": "测试",
-        "name_zh": "测试",
-        "level_zh": "七级",
-        "price": "9999999",
-        "desc_zh": "测试",
-        "color": "红",
-        "target_zh": "无",
-        "conflicts_zh": "无"
     }
 ]
