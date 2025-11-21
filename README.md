@@ -114,12 +114,7 @@ JavaScript (ES6+): 原生 JS 实现，无第三方重型框架依赖。
 Canvas: 用于星图视图的绘制与交互。
 FontAwesome: 用于界面图标。
 GitHub REST API: 用于数据的云端同步。
-📸 截图展示
-请在此处替换为您实际项目的截图
-列表视图 (昼)	星图视图 (夜)	管理后台
-![alt text](https://via.placeholder.com/300x180?text=List+View)
-![alt text](https://via.placeholder.com/300x180?text=Galaxy+View)
-![alt text](https://via.placeholder.com/300x180?text=Admin+Panel)
+
 🤝 贡献
 欢迎提交 Issue 或 Pull Request 来改进代码！
 Designed with ❤️ by Xianyun
